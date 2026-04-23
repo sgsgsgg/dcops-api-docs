@@ -1,0 +1,1474 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "DCOPS 运维平台 API",
+    "description": "DCOPS（Data Center Operations）运维平台对外开放 API 接口文档。支持巡检、维护、维修、演练、服务改善、人员招聘、机架开关电、安全管理等业务场景的数据查询与工单管理。",
+    "version": "1.0.0",
+    "contact": {
+      "name": "DCOPS API Support",
+      "url": "https://dcops.idc.tencent.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre",
+      "description": "测试环境"
+    },
+    {
+      "url": "https://dcops.idc.tencent.com/relay/open/ifob/rapi/ifob-fre",
+      "description": "正式环境"
+    }
+  ],
+  "tags": [
+    {
+      "name": "巡检管理",
+      "description": "巡检工单查询、数据统计等"
+    },
+    {
+      "name": "维护管理",
+      "description": "维护主表、子表工单查询"
+    },
+    {
+      "name": "维修管理",
+      "description": "维修工单查询与管理"
+    },
+    {
+      "name": "演练管理",
+      "description": "演练计划创建、更新、查询及结果提交"
+    },
+    {
+      "name": "服务改善",
+      "description": "服务质量改进、整改措施反馈等"
+    },
+    {
+      "name": "人员管理",
+      "description": "在库服务人员信息查询"
+    },
+    {
+      "name": "通用查询",
+      "description": "租赁机房服务工单通用查询接口"
+    }
+  ],
+  "paths": {
+    "/inspection/main/query": {
+      "post": {
+        "tags": ["巡检管理"],
+        "summary": "查询巡检主表",
+        "description": "根据条件查询巡检主表数据，支持精确查询、集合查询和范围查询。Action=ServiceQueryData, Method=Run, SchemaId=inspection_main_service",
+        "operationId": "queryInspectionMain",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InspectionMainQueryRequest"
+              },
+              "example": {
+                "Action": "ServiceQueryData",
+                "Method": "Run",
+                "SystemId": "120",
+                "SchemaId": "inspection_main_service",
+                "ReturnTotalRows": 0,
+                "BussType": "巡检",
+                "Data": {
+                  "ResultColumns": {
+                    "Id": "",
+                    "AbnormalCount": "",
+                    "CampusName": "",
+                    "CheckResult": "",
+                    "CreateTime": "",
+                    "Duration": "",
+                    "FmcApprover": "",
+                    "FmcDetail": "",
+                    "FmcStatus": "",
+                    "InspStatus": "",
+                    "InspType": "",
+                    "IsAbnormal": "",
+                    "IsTimeout": "",
+                    "MozuName": "",
+                    "PauseDuration": "",
+                    "PlanningStartTime": "",
+                    "Rate": "",
+                    "ReInspCount": "",
+                    "RealEndTime": "",
+                    "RealMonitor": "",
+                    "RealStartTime": "",
+                    "RealTodoUser": "",
+                    "ServiceApprover": "",
+                    "ServiceDetail": "",
+                    "ServiceStatus": "",
+                    "TaskName": "",
+                    "TicketId": "",
+                    "TimeoutDuration": "",
+                    "TodoUser": "",
+                    "UnpassExplain": "",
+                    "UpdateTime": "",
+                    "Score": "",
+                    "ReInspData": ""
+                  },
+                  "SearchCondition": {
+                    "CampusName": "清远-清新",
+                    "MozuName": ["清远清新模组11", "清远清新模组12"],
+                    "PlanningStartTime": {
+                      "gte": "2024-02-20 09:07:33"
+                    }
+                  },
+                  "Sorts": [
+                    {
+                      "Column": "Id",
+                      "SortType": "desc"
+                    }
+                  ],
+                  "Limit": {
+                    "Size": 20,
+                    "Start": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InspectionMainQueryResponse"
+                },
+                "example": {
+                  "Return": 0,
+                  "Details": "",
+                  "ReqId": "fob-gnetopsd0nyg51pfngg",
+                  "Data": {
+                    "List": [
+                      {
+                        "Id": 123,
+                        "TaskName": "仪征东升模组11_日常巡检_2023-05-11 18:00:06",
+                        "TicketId": "20230511002045",
+                        "UpdateTime": "2024-02-20 17:07:33"
+                      }
+                    ],
+                    "TotalRows": 1078
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/maintenance/main/query": {
+      "post": {
+        "tags": ["维护管理"],
+        "summary": "查询维护自建主表",
+        "description": "根据条件查询维护自建主表数据。Action=ServiceQueryData, Method=Run, SchemaId=maintenance_ticket_main_service",
+        "operationId": "queryMaintenanceMain",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MaintenanceMainQueryRequest"
+              },
+              "example": {
+                "Action": "ServiceQueryData",
+                "Method": "Run",
+                "SystemId": "120",
+                "SchemaId": "maintenance_ticket_main_service",
+                "ReturnTotalRows": 0,
+                "BussType": "维护",
+                "Data": {
+                  "ResultColumns": {
+                    "AdminComments": "",
+                    "AvgTimeConsuming": "",
+                    "CampusName": "",
+                    "ChangeId": "",
+                    "DeviceList": "",
+                    "DevicetypesName": "",
+                    "EndDate": "",
+                    "FmcReject": "",
+                    "FmcUser": "",
+                    "Id": "",
+                    "Item": "",
+                    "MOP": "",
+                    "MadminReview": "",
+                    "Maintainer": "",
+                    "MaintenanceCycle": "",
+                    "MaintenanceType": "",
+                    "MozuName": "",
+                    "OncePass": "",
+                    "Operator": "",
+                    "PMEngineer": "",
+                    "PMPhone": "",
+                    "PlanEndDate": "",
+                    "PlanStartDate": "",
+                    "ProcessTitle": "",
+                    "Professional": "",
+                    "ReCheckList": "",
+                    "ReasonForMadmin": "",
+                    "RegionName": "",
+                    "SOP": "",
+                    "StandardTime": "",
+                    "StatusLight": "",
+                    "SupplierTimes": "",
+                    "TicketId": "",
+                    "TicketStartDate": "",
+                    "TicketStatus": "",
+                    "ToChange": "",
+                    "ToMaintainer": "",
+                    "ToolsList": "",
+                    "UnqualifiedType": "",
+                    "UseMop": "",
+                    "WorkersCount": ""
+                  },
+                  "SearchCondition": {},
+                  "Sorts": [],
+                  "Limit": {
+                    "Size": 20,
+                    "Start": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MaintenanceMainQueryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/maintenance/sub/query": {
+      "post": {
+        "tags": ["维护管理"],
+        "summary": "查询维护自建子表",
+        "description": "根据条件查询维护自建子表数据。Action=ServiceQueryData, Method=run, SchemaId=dg_maintenance_ticket_sub_service",
+        "operationId": "queryMaintenanceSub",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MaintenanceSubQueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MaintenanceSubQueryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/repair/main/query": {
+      "post": {
+        "tags": ["维修管理"],
+        "summary": "查询维修主表",
+        "description": "根据条件查询维修主表数据。Action=ServiceQueryData, Method=run, SchemaId=maintenance_work_order_read",
+        "operationId": "queryRepairMain",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepairMainQueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepairMainQueryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/service/improve/feedback": {
+      "post": {
+        "tags": ["服务改善"],
+        "summary": "服务商侧建单-整改措施反馈",
+        "description": "服务商侧建单，提交整改措施反馈。Action=ServiceImprove, Method=IspQcFeedback",
+        "operationId": "serviceImproveFeedback",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceImproveFeedbackRequest"
+              },
+              "example": {
+                "Action": "ServiceImprove",
+                "Method": "IspQcFeedback",
+                "SystemId": "121",
+                "Data": {
+                  "service_ticket_id": "20230622001583",
+                  "improve_ticket_id": "20240709008140",
+                  "isp_ticket_id": "20230622001583",
+                  "reason": "something wrong",
+                  "measure": "do something",
+                  "due_time": "2024-01-09 11:50:59",
+                  "service_manager": "xxx",
+                  "business_manager": "xxx",
+                  "feedback_person": "Alice",
+                  "upload_data": [
+                    "https://test.otob.dcops.qq.com/relay/cosfile/relay/20241017/data_b6c60636f0c740b56653536eb5d12433.csv"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceImproveResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/service/improve/create": {
+      "post": {
+        "tags": ["服务改善"],
+        "summary": "服务商侧建单",
+        "description": "服务商侧创建改进单。Action=ServiceImprove, Method=IspQcFeedback",
+        "operationId": "serviceImproveCreate",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceImproveCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceImproveCreateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/service/improve/implement-feedback": {
+      "post": {
+        "tags": ["服务改善"],
+        "summary": "整改落地详情反馈",
+        "description": "提交整改落地详情反馈。Action=ServiceImprove, Method=ImplementFeedback",
+        "operationId": "serviceImplementFeedback",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceImplementFeedbackRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/service/person/query": {
+      "post": {
+        "tags": ["人员管理"],
+        "summary": "查询在库服务人员信息",
+        "description": "根据条件查询在库服务人员信息。Action=ServiceQueryData, Method=run, SchemaId=service_person",
+        "operationId": "queryServicePerson",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServicePersonQueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServicePersonQueryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/service/common-ticket/query": {
+      "post": {
+        "tags": ["通用查询"],
+        "summary": "租赁机房服务工单通用查询",
+        "description": "根据条件查询租赁机房服务工单。Action=ServiceQueryData, Method=run, SchemaId=service_common_ticket",
+        "operationId": "queryCommonTicket",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommonTicketQueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonTicketQueryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drill/plan/update": {
+      "post": {
+        "tags": ["演练管理"],
+        "summary": "更新演练计划",
+        "description": "更新演练计划信息。Action=DrillCreatePlan, Method=UpdatePlanTicket",
+        "operationId": "updateDrillPlan",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrillPlanUpdateRequest"
+              },
+              "example": {
+                "Action": "DrillCreatePlan",
+                "Method": "UpdatePlanTicket",
+                "SystemId": "2",
+                "data": {
+                  "req_id": "3830aeff-45f2-44a3-8d9c-cced989c8728",
+                  "plan": {
+                    "drill_date": "2024-12-24",
+                    "gds_id": "1111111111111",
+                    "mozu_name": "上海富特模组01",
+                    "plan_id": "20241226002",
+                    "plan_month": "2024-10",
+                    "status": "已取消"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrillPlanUpdateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drill/plan/create": {
+      "post": {
+        "tags": ["演练管理"],
+        "summary": "添加演练计划",
+        "description": "创建新的演练计划。Action=DrillCreatePlan, Method=CreatePlanTicket",
+        "operationId": "createDrillPlan",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrillPlanCreateRequest"
+              },
+              "example": {
+                "Action": "DrillCreatePlan",
+                "Method": "CreatePlanTicket",
+                "SystemId": "2",
+                "data": {
+                  "FacilitatorName": "万国",
+                  "FacilitatorTicketId": "GDS-DrillPlan-20241231103500",
+                  "req_id": "3830aeff-45f2-44a3-8d9c-cced989c8728",
+                  "plans": [
+                    {
+                      "drill_date": "2025-12-21",
+                      "gds_id": "6512",
+                      "mozu_name": "上海富特模组01",
+                      "plan_id": "2",
+                      "plan_month": "2025-12"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrillPlanCreateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drill/plan/query": {
+      "post": {
+        "tags": ["演练管理"],
+        "summary": "演练计划查询",
+        "description": "根据条件查询演练计划。Action=QueryData, Method=run, SchemaId=drill_standard_calendar",
+        "operationId": "queryDrillPlan",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrillPlanQueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrillPlanQueryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drill/result/submit": {
+      "post": {
+        "tags": ["演练管理"],
+        "summary": "演练结果提交",
+        "description": "提交演练结果数据。Action=DrillCreateToDoTicket, Method=CreateToDoTicketTicket",
+        "operationId": "submitDrillResult",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrillResultSubmitRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrillResultSubmitResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drill/result/get": {
+      "post": {
+        "tags": ["演练管理"],
+        "summary": "通过单号获取演练结果信息",
+        "description": "根据工单号查询演练结果。Action=DrillCreateToDoTicket, Method=GetToDoTicketTicketInfo",
+        "operationId": "getDrillResult",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrillResultGetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrillResultGetResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/drill/ticket/query": {
+      "post": {
+        "tags": ["演练管理"],
+        "summary": "演练实施工单信息分页查询",
+        "description": "分页查询演练实施工单信息。Action=QueryData, Method=run, SchemaId=drill_tode_ticket_info",
+        "operationId": "queryDrillTicket",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrillTicketQueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功返回",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrillTicketQueryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CommonRequestBase": {
+        "type": "object",
+        "required": ["Action", "Method", "SystemId"],
+        "properties": {
+          "Action": {
+            "type": "string",
+            "description": "操作类型，固定值"
+          },
+          "Method": {
+            "type": "string",
+            "description": "方法名称，固定值"
+          },
+          "SystemId": {
+            "type": "string",
+            "description": "调用方系统标识"
+          }
+        }
+      },
+      "QueryDataRequestBase": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommonRequestBase"
+          },
+          {
+            "type": "object",
+            "required": ["SchemaId", "ReturnTotalRows", "Data"],
+            "properties": {
+              "SchemaId": {
+                "type": "string",
+                "description": "查询的表/Schema标识"
+              },
+              "ReturnTotalRows": {
+                "type": "integer",
+                "description": "是否返回总行数，0-不返回，1-返回"
+              },
+              "BussType": {
+                "type": "string",
+                "description": "业务类型"
+              },
+              "Data": {
+                "type": "object",
+                "properties": {
+                  "ResultColumns": {
+                    "type": "object",
+                    "description": "需要返回的字段列表，字段值为空字符串"
+                  },
+                  "SearchCondition": {
+                    "type": "object",
+                    "description": "查询条件，支持精确查询、集合查询(IN)、范围查询(gt/gte/lt/lte)"
+                  },
+                  "Sorts": {
+                    "type": "array",
+                    "description": "排序规则",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "Column": {
+                          "type": "string",
+                          "description": "排序字段名"
+                        },
+                        "SortType": {
+                          "type": "string",
+                          "enum": ["asc", "desc"],
+                          "description": "排序方式"
+                        }
+                      }
+                    }
+                  },
+                  "Limit": {
+                    "type": "object",
+                    "properties": {
+                      "Size": {
+                        "type": "integer",
+                        "description": "每页记录数"
+                      },
+                      "Start": {
+                        "type": "integer",
+                        "description": "起始位置"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "StandardResponse": {
+        "type": "object",
+        "properties": {
+          "Return": {
+            "type": "integer",
+            "description": "返回码，0表示成功"
+          },
+          "Details": {
+            "type": "string",
+            "description": "详细信息"
+          },
+          "ReqId": {
+            "type": "string",
+            "description": "请求ID"
+          },
+          "Data": {
+            "type": "object",
+            "description": "返回数据"
+          }
+        }
+      },
+      "InspectionMainQueryRequest": {
+        "$ref": "#/components/schemas/QueryDataRequestBase"
+      },
+      "InspectionMainQueryResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/StandardResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "Data": {
+                "type": "object",
+                "properties": {
+                  "List": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "巡检主表记录"
+                    }
+                  },
+                  "TotalRows": {
+                    "type": "integer",
+                    "description": "总行数"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "MaintenanceMainQueryRequest": {
+        "$ref": "#/components/schemas/QueryDataRequestBase"
+      },
+      "MaintenanceMainQueryResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/StandardResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "Data": {
+                "type": "object",
+                "properties": {
+                  "List": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "TotalRows": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "MaintenanceSubQueryRequest": {
+        "$ref": "#/components/schemas/QueryDataRequestBase"
+      },
+      "MaintenanceSubQueryResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/StandardResponse"
+          }
+        ]
+      },
+      "RepairMainQueryRequest": {
+        "$ref": "#/components/schemas/QueryDataRequestBase"
+      },
+      "RepairMainQueryResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/StandardResponse"
+          }
+        ]
+      },
+      "ServiceImproveFeedbackRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommonRequestBase"
+          },
+          {
+            "type": "object",
+            "required": ["Data"],
+            "properties": {
+              "Data": {
+                "type": "object",
+                "required": [
+                  "service_ticket_id",
+                  "improve_ticket_id",
+                  "isp_ticket_id",
+                  "measure",
+                  "reason",
+                  "due_time",
+                  "service_manager",
+                  "business_manager",
+                  "feedback_person"
+                ],
+                "properties": {
+                  "service_ticket_id": {
+                    "type": "string",
+                    "description": "服务单号"
+                  },
+                  "improve_ticket_id": {
+                    "type": "string",
+                    "description": "质量改进单号"
+                  },
+                  "isp_ticket_id": {
+                    "type": "string",
+                    "description": "服务商单号"
+                  },
+                  "measure": {
+                    "type": "string",
+                    "description": "整改措施"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "原因分析"
+                  },
+                  "due_time": {
+                    "type": "string",
+                    "description": "整改措施计划完成时间"
+                  },
+                  "service_manager": {
+                    "type": "string",
+                    "description": "服务经理确认"
+                  },
+                  "business_manager": {
+                    "type": "string",
+                    "description": "商务经理确认"
+                  },
+                  "feedback_person": {
+                    "type": "string",
+                    "description": "责任人"
+                  },
+                  "upload_data": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "反馈附件数据URL数组"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ServiceImproveResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "nullable": true
+          },
+          "msg": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          }
+        }
+      },
+      "ServiceImproveCreateRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommonRequestBase"
+          },
+          {
+            "type": "object",
+            "required": ["Data"],
+            "properties": {
+              "Data": {
+                "type": "object",
+                "required": [
+                  "service_ticket_id",
+                  "isp_ticket_id",
+                  "reason",
+                  "measure",
+                  "due_time",
+                  "service_manager",
+                  "business_manager",
+                  "feedback_person"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "ServiceImproveCreateResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "TicketId": {
+                "type": "string"
+              }
+            }
+          },
+          "msg": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          }
+        }
+      },
+      "ServiceImplementFeedbackRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommonRequestBase"
+          },
+          {
+            "type": "object",
+            "required": ["Data"],
+            "properties": {
+              "Data": {
+                "type": "object",
+                "required": [
+                  "service_ticket_id",
+                  "improve_ticket_id",
+                  "implement_info"
+                ],
+                "properties": {
+                  "service_ticket_id": {
+                    "type": "string",
+                    "description": "服务单号"
+                  },
+                  "improve_ticket_id": {
+                    "type": "string",
+                    "description": "质量改进单号"
+                  },
+                  "implement_info": {
+                    "type": "string",
+                    "description": "整改落地详情"
+                  },
+                  "feedback_upload_data": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "反馈附件数据"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ServicePersonQueryRequest": {
+        "$ref": "#/components/schemas/QueryDataRequestBase"
+      },
+      "ServicePersonQueryResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "List": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "BusinessType": {
+                      "type": "string",
+                      "description": "人员负责业务类型：巡检/变更/维护"
+                    },
+                    "CampusName": {
+                      "type": "string",
+                      "description": "所属园区"
+                    },
+                    "CellphoneNumber": {
+                      "type": "string",
+                      "description": "手机号码"
+                    },
+                    "City": {
+                      "type": "string",
+                      "description": "人员工作城市"
+                    },
+                    "Gender": {
+                      "type": "string",
+                      "description": "性别"
+                    },
+                    "Id": {
+                      "type": "integer",
+                      "description": "人员id自增"
+                    },
+                    "MozuName": {
+                      "type": "string",
+                      "description": "所属模组"
+                    },
+                    "PersonPosition": {
+                      "type": "string",
+                      "description": "人员岗位"
+                    },
+                    "PersonStatus": {
+                      "type": "string",
+                      "description": "在职/离职"
+                    },
+                    "PersonnelSource": {
+                      "type": "string",
+                      "description": "人员来源：运营商/服务商"
+                    },
+                    "Photo": {
+                      "type": "string",
+                      "description": "照片cos地址"
+                    },
+                    "ServiceProvider": {
+                      "type": "string",
+                      "description": "人员所属公司"
+                    },
+                    "UserAccount": {
+                      "type": "string",
+                      "description": "人员科技账号"
+                    },
+                    "UserRealName": {
+                      "type": "string",
+                      "description": "人员姓名"
+                    }
+                  }
+                }
+              },
+              "TotalRows": {
+                "type": "integer"
+              }
+            }
+          },
+          "msg": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          }
+        }
+      },
+      "CommonTicketQueryRequest": {
+        "$ref": "#/components/schemas/QueryDataRequestBase"
+      },
+      "CommonTicketQueryResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "List": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "TotalRows": {
+                "type": "integer"
+              }
+            }
+          },
+          "msg": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          }
+        }
+      },
+      "DrillPlanUpdateRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommonRequestBase"
+          },
+          {
+            "type": "object",
+            "required": ["data"],
+            "properties": {
+              "data": {
+                "type": "object",
+                "required": ["req_id", "plan"],
+                "properties": {
+                  "req_id": {
+                    "type": "string",
+                    "description": "接口幂等用"
+                  },
+                  "plan": {
+                    "type": "object",
+                    "required": [
+                      "drill_date",
+                      "gds_id",
+                      "mozu_name",
+                      "plan_id",
+                      "plan_month",
+                      "status"
+                    ],
+                    "properties": {
+                      "drill_date": {
+                        "type": "string",
+                        "description": "计划执行日期"
+                      },
+                      "gds_id": {
+                        "type": "string",
+                        "description": "计划UUID，唯一标识"
+                      },
+                      "mozu_name": {
+                        "type": "string",
+                        "description": "模组"
+                      },
+                      "plan_id": {
+                        "type": "string",
+                        "description": "演练方案id"
+                      },
+                      "plan_month": {
+                        "type": "string",
+                        "description": "计划执行月份"
+                      },
+                      "status": {
+                        "type": "string",
+                        "description": "计划状态"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "DrillPlanUpdateResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "TicketId": {
+                "type": "string"
+              },
+              "calendars": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "msg": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          }
+        }
+      },
+      "DrillPlanCreateRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommonRequestBase"
+          },
+          {
+            "type": "object",
+            "required": ["data"],
+            "properties": {
+              "data": {
+                "type": "object",
+                "required": [
+                  "FacilitatorName",
+                  "FacilitatorTicketId",
+                  "plans",
+                  "req_id"
+                ],
+                "properties": {
+                  "FacilitatorName": {
+                    "type": "string",
+                    "description": "第三方服务商系统名称"
+                  },
+                  "FacilitatorTicketId": {
+                    "type": "string",
+                    "description": "第三方服务商平台系统工单号"
+                  },
+                  "req_id": {
+                    "type": "string",
+                    "description": "接口幂等用"
+                  },
+                  "plans": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "drill_date",
+                        "gds_id",
+                        "mozu_name",
+                        "plan_id",
+                        "plan_month"
+                      ],
+                      "properties": {
+                        "drill_date": {
+                          "type": "string",
+                          "description": "计划执行日期"
+                        },
+                        "gds_id": {
+                          "type": "string",
+                          "description": "计划UUID"
+                        },
+                        "mozu_name": {
+                          "type": "string",
+                          "description": "模组"
+                        },
+                        "plan_id": {
+                          "type": "string",
+                          "description": "演练方案id"
+                        },
+                        "plan_month": {
+                          "type": "string",
+                          "description": "计划执行月份"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "DrillPlanCreateResponse": {
+        "$ref": "#/components/schemas/DrillPlanUpdateResponse"
+      },
+      "DrillPlanQueryRequest": {
+        "$ref": "#/components/schemas/QueryDataRequestBase"
+      },
+      "DrillPlanQueryResponse": {
+        "type": "object",
+        "properties": {
+          "Data": {
+            "type": "object",
+            "properties": {
+              "List": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "TotalRows": {
+                "type": "integer"
+              }
+            }
+          },
+          "Details": {
+            "type": "string"
+          },
+          "Return": {
+            "type": "integer"
+          }
+        }
+      },
+      "DrillResultSubmitRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommonRequestBase"
+          },
+          {
+            "type": "object",
+            "required": ["Data"],
+            "properties": {
+              "Data": {
+                "type": "object",
+                "required": [
+                  "FacilitatorName",
+                  "FacilitatorTicketId",
+                  "drill_date",
+                  "operation",
+                  "problem_table",
+                  "step1_table",
+                  "step2_table",
+                  "summary",
+                  "tid",
+                  "time_consum_end",
+                  "time_consum_end_1",
+                  "txt_end",
+                  "txt_end_1",
+                  "txt_start",
+                  "users_select"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "DrillResultSubmitResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "TicketId": {
+                "type": "string"
+              },
+              "ticketData": {
+                "type": "object"
+              }
+            }
+          },
+          "msg": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          }
+        }
+      },
+      "DrillResultGetRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommonRequestBase"
+          },
+          {
+            "type": "object",
+            "required": ["Data"],
+            "properties": {
+              "Data": {
+                "type": "object",
+                "required": ["ticket_id"],
+                "properties": {
+                  "ticket_id": {
+                    "type": "string",
+                    "description": "演练工单号"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "DrillResultGetResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "description": "演练结果详细信息"
+          },
+          "msg": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          }
+        }
+      },
+      "DrillTicketQueryRequest": {
+        "$ref": "#/components/schemas/QueryDataRequestBase"
+      },
+      "DrillTicketQueryResponse": {
+        "$ref": "#/components/schemas/StandardResponse"
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "API密钥认证，详见鉴权说明"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ]
+}
