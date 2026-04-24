@@ -54,57 +54,11 @@ http://localhost:8080
 
 ```
 dcops-api-docs/
-├── openapi.json                       # OpenAPI 3.0 规范文件（用于 Swagger UI 文档展示）
-├── postman_collection.json            # ⭐ Postman Collection v2.1（推荐导入 Apifox / Postman）
-├── postman_environment_test.json      # 测试环境变量
-├── postman_environment_prod.json      # 正式环境变量
-├── API.md                             # 接口说明 Markdown 版
-├── index.html                         # Swagger UI 页面
-└── README.md                          # 项目说明文档
+├── openapi.json    # OpenAPI 3.0 规范文件
+├── API.md          # 接口说明 Markdown 版
+├── index.html      # Swagger UI 页面
+└── README.md       # 项目说明文档
 ```
-
-## ⭐ 推荐：导入 Apifox / Postman（支持 HMAC 自动签名）
-
-`openapi.json` 适合在线文档浏览，但 OpenAPI 3.0 规范**不支持前置脚本**，无法自动生成 HMAC-SHA-512 签名。
-为此本仓库额外提供了 **Postman Collection v2.1**，导入后即可自动签名。
-
-### 1. 导入 Collection + Environment
-
-| 客户端 | 操作路径 |
-|---|---|
-| **Apifox** | `项目设置 → 数据源 → 导入 → Postman → 选择 postman_collection.json` |
-| **Postman** | `Import → File → 选择 postman_collection.json 和两个 environment.json` |
-
-两个环境文件任选其一（或两个都导入，在顶部下拉切换）：
-- `postman_environment_test.json`（测试环境 `https://dcops.test.tencent.com/relay/open/ifob/rapi`）
-- `postman_environment_prod.json`（正式环境 `https://dcops.idc.tencent.com/relay/open/ifob/rapi`）
-
-### 2. 填入 `appkey`
-
-打开环境变量，把 `appkey` 填成管理员分配的 **HEX 字符串**；`SystemId` 默认 `121`，按需调整。
-
-### 3. 选中环境后发送任意请求
-
-Collection 级别的 **Pre-request Script** 会自动：
-1. 从环境读 `appkey` / `SystemId`
-2. 用 `HmacSHA512(Timestamp + RequestBody, hexDecode(appkey))` 计算签名
-3. 把完整 Authorization 值写入环境变量 `authorization`
-4. 每个 request 的 header `Authorization: {{authorization}}` 引用它
-
-### 4. Collection 结构
-
-共 **13 个文件夹 / 45 个接口**，严格按 BussType 分组：
-
-| 文件夹 | 接口数 | 文件夹 | 接口数 |
-|---|---|---|---|
-| 巡检管理 | 1 | 设备管理 | 1 |
-| 维护管理 | 4 | 机架开关电 | 3 |
-| 维修管理 | 4 | 安全管理 | 4 |
-| 变更管理 | 2 | 服务改善 | 2 |
-| 事件管理 | 2 | 人员招聘 | 5 |
-| 演练管理 | 12 | 培训管理 | 3 |
-| 通用查询 | 2 | | |
-
 
 ## 🔗 API 端点
 
@@ -121,9 +75,9 @@ https://dcops.idc.tencent.com/relay/open/ifob/rapi/ifob-fre
 ## 📝 主要接口分类
 
 所有 45 个接口共用同一个 URL：`{baseUrl}/ifob-fre`（测试或正式环境），
-业务由请求 body 的 `Action` / `SchemaId` / `BussType` 字段路由，详见 Postman Collection 或 `openapi.json`。
+业务由请求 body 的 `Action` / `SchemaId` / `BussType` 字段路由，详见 `openapi.json`。
 
-业务分组（与 Postman Collection 文件夹一致）：
+业务分组（按 BussType）：
 
 - **巡检管理**（1）：巡检主表
 - **维护管理**（4）：维护主表 / 维护子表 / 维护租赁主单表 / 维护租赁子单表
