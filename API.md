@@ -3392,34 +3392,34 @@ CREATE TABLE `requirement_info` (
 
 支持查询字段
 
-| 字段名称 | 字段 ID |
-| --- | --- |
-| 主键ID | `Id` |
-| 工单ID | `TicketId` |
-| 创建时间 | `CreatedAt` |
-| 更新时间 | `UpdatedAt` |
-| 需求单号 | `RequirementTicket` |
-| 面试岗位 | `BillingPosition` |
-| 需求状态 | `RequirementStatus` |
-| 需求类型 | `RequirementType` |
-| 供应商 | `ServiceProvider` |
-| 园区 | `GroupName` |
-| 需求数量 | `NeedCnt` |
-| 期望到岗时间 | `ExpectTime` |
-| 工作地点 | `Workplace` |
-| 供应商 | `ServiceProvider` |
+| 字段名称   | 字段 ID               |
+|--------|---------------------|
+| 主键ID   | `Id`                |
+| 工单ID   | `TicketId`          |
+| 创建时间   | `CreatedAt`         |
+| 更新时间   | `UpdatedAt`         |
+| 需求单号   | `RequirementTicket` |
+| 面试岗位   | `BillingPosition`   |
+| 需求状态   | `RequirementStatus` |
+| 需求类型   | `RequirementType`   |
+| 供应商    | `ServiceProvider`   |
+| 园区     | `GroupName`         |
+| 需求数量   | `NeedCnt`           |
+| 期望到岗时间 | `ExpectTime`        |
+| 工作地点   | `Workplace`         |
+| 供应商    | `ServiceProvider`   |
 
 查询条件
 
-| 字段名称 | 字段 ID |
-| --- | --- |
-| 工单ID | `TicketId` |
+| 字段名称 | 字段 ID               |
+|------|---------------------|
+| 工单ID | `TicketId`          |
 | 需求单号 | `RequirementTicket` |
-| 面试岗位 | `BillingPosition` |
+| 面试岗位 | `BillingPosition`   |
 | 需求状态 | `RequirementStatus` |
-| 需求类型 | `RequirementType` |
-| 供应商 | `ServiceProvider` |
-| 园区 | `GroupName` |
+| 需求类型 | `RequirementType`   |
+| 供应商  | `ServiceProvider`   |
+| 园区   | `GroupName`         |
 
 **请求体：**
 
@@ -3759,53 +3759,53 @@ CREATE TABLE `change_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='变更单信息表'
 ```
 
-| 字段名 | 字段说明 |
-| --- | --- |
-| Id | 变更单id |
-| ParkName | 园区名称 |
-| MozuName | 模组名称 |
-| ChangeSceneName | 变更场景名称 |
-| ChangeTheme | 变更主题 |
-| IsOnsiteSupport | 需优化现场支持 |
-| ChangeReasonType | 变更原因类型 |
-| ChangePlanType | 变更计划类型 |
-| IsReplenishment | 是否补单 |
-| ChangeReason | 变更原因 |
-| ChangesFocusPeople | 变更关注人 |
-| BuildName | 楼宇名称 |
-| PlanStartTime | 计划开始时间 |
-| PlanEndTime | 计划结束时间 |
-| ChangeLevel | 变更级别 |
-| Major | 专业 |
-| ChangeType | 变更类型 |
-| ChangeName | 变更名称 |
-| Implementer | 实施人 |
-| CreateTime | 创建时间 |
-| CompleteTime | 结单时间 |
-| ApprovalStatus | 审批状态 |
-| TicketId | 审批流程单号 |
-| InstanceId | 审批流程ID |
-| ChangeOptions | 变更方案id |
-| WBOrder | 维保变更单号 |
-| IsWB | 是否维保0变更1维保 |
-| Draft | 变更单状态：未结单/已结单 |
-| Creator | 创建人 |
-| IsAuto | 是否自动化变更 |
-| IsEvent | 是否事件 |
-| EventOrder | 事件单号 |
-| NoticeMsg | 开始公告内容 |
-| IsSendNotice | 是否发送结单公告：是/否 |
-| EndNoticeMsg | 结单公告内容 |
-| IsConfigAlarm | 是否配置告警：未配置/已配置 |
-| IsConfigUser | 告警配置人 |
-| PingshenResult | 评审结果 |
-| PingshenAdvice | 评审意见 |
-| SchemeType | 1普通模板、0标准化模板-全国统用、2标准化模板-模组自用、3标准化模板自动检测 |
-| ChangeScheme | 方案名称 |
-| ConfirmStatus | 确认变更状态：未触发/待处理/已确认 |
-| AccountStatus | 实施单结单状态：未结单/已结单（只能放SearchCondition，不能放ResultColumns） |
-| PendingApprove | 当前处理人 |
-| IsCanDelay | 是否可延期（1可延期0不可延期） |
+| 字段名                | 字段说明                                                 |
+|--------------------|------------------------------------------------------|
+| Id                 | 变更单id                                                |
+| ParkName           | 园区名称                                                 |
+| MozuName           | 模组名称                                                 |
+| ChangeSceneName    | 变更场景名称                                               |
+| ChangeTheme        | 变更主题                                                 |
+| IsOnsiteSupport    | 需优化现场支持                                              |
+| ChangeReasonType   | 变更原因类型                                               |
+| ChangePlanType     | 变更计划类型                                               |
+| IsReplenishment    | 是否补单                                                 |
+| ChangeReason       | 变更原因                                                 |
+| ChangesFocusPeople | 变更关注人                                                |
+| BuildName          | 楼宇名称                                                 |
+| PlanStartTime      | 计划开始时间                                               |
+| PlanEndTime        | 计划结束时间                                               |
+| ChangeLevel        | 变更级别                                                 |
+| Major              | 专业                                                   |
+| ChangeType         | 变更类型                                                 |
+| ChangeName         | 变更名称                                                 |
+| Implementer        | 实施人                                                  |
+| CreateTime         | 创建时间                                                 |
+| CompleteTime       | 结单时间                                                 |
+| ApprovalStatus     | 审批状态                                                 |
+| TicketId           | 审批流程单号                                               |
+| InstanceId         | 审批流程ID                                               |
+| ChangeOptions      | 变更方案id                                               |
+| WBOrder            | 维保变更单号                                               |
+| IsWB               | 是否维保0变更1维保                                           |
+| Draft              | 变更单状态：未结单/已结单                                        |
+| Creator            | 创建人                                                  |
+| IsAuto             | 是否自动化变更                                              |
+| IsEvent            | 是否事件                                                 |
+| EventOrder         | 事件单号                                                 |
+| NoticeMsg          | 开始公告内容                                               |
+| IsSendNotice       | 是否发送结单公告：是/否                                         |
+| EndNoticeMsg       | 结单公告内容                                               |
+| IsConfigAlarm      | 是否配置告警：未配置/已配置                                       |
+| IsConfigUser       | 告警配置人                                                |
+| PingshenResult     | 评审结果                                                 |
+| PingshenAdvice     | 评审意见                                                 |
+| SchemeType         | 1普通模板、0标准化模板-全国统用、2标准化模板-模组自用、3标准化模板自动检测             |
+| ChangeScheme       | 方案名称                                                 |
+| ConfirmStatus      | 确认变更状态：未触发/待处理/已确认                                   |
+| AccountStatus      | 实施单结单状态：未结单/已结单（只能放SearchCondition，不能放ResultColumns） |
+| PendingApprove     | 当前处理人                                                |
+| IsCanDelay         | 是否可延期（1可延期0不可延期）                                     |
 
 **请求体：**
 
@@ -3935,47 +3935,47 @@ CREATE TABLE `change_child` (
 ) ENGINE=InnoDB AUTO_INCREMENT=93927 DEFAULT CHARSET=utf8 COMMENT='变更子单信息'
 ```
 
-| 字段名 | 字段说明 |
-| --- | --- |
-| CId | 变更子单号 |
-| MId | 变更母单号 |
-| Implementer | 实施人 |
-| PlanStartTime | 计划开始时间 |
-| PlanEndTime | 计划结束时间 |
-| RealStartTime | 实际开始时间 |
-| RealEndTime | 实际结束时间 |
-| CreatedTime | 创建时间 |
-| CompleteTime | 结单时间 |
-| ImpactPowerOff | 影响电力中断 |
-| ImpactAreaType | 影响范围类型 |
-| Rack | 机架 |
-| L1Motor | 一级机房 |
-| NormalImpact | 正常影响描述 |
-| AbnormalImpact | 异常影响描述 |
-| Status | 子单执行状态：未执行/执行中/执行结束 |
-| Id | Id |
-| DeviceSonList | 设备信息 |
-| MotorManageUnit | 机房管理单元 |
-| AlarmConvergenceRate | 告警收敛率 |
-| CanyuName | 参与人 |
-| ChangessResult | 变更结果：成功/失败/异常/取消 |
-| ChangeSummary | 变更结果说明 |
-| SummaryDocument | 变更总结(异常变更上传文档) |
-| ConfirmStatus | 确认变更状态：未触发/待处理/已确认 |
-| ConfirmPerson | 确认变更状态用户 |
-| CarryOutStatus | 实施状态：未激活/待实施/实施中/已完成 |
-| AccountStatus | 结单状态：未结单/已结单 |
-| ChangeName | 变更名称 |
-| ChangeLevel | 变更级别 |
-| ParkName | 园区名称 |
-| MozuName | 模组名称 |
-| ApprovalStatus | 审批状态 |
-| IsAuto | 是否自动化 |
-| CTicketId | 实施单dcops单号 |
-| ChangeSceneName | 变更场景名称 |
-| Creator | 创建人 |
-| IsCharging | 是否计费 |
-| IsMoreSop | 是否多设备 |
+| 字段名                  | 字段说明                 |
+|----------------------|----------------------|
+| CId                  | 变更子单号                |
+| MId                  | 变更母单号                |
+| Implementer          | 实施人                  |
+| PlanStartTime        | 计划开始时间               |
+| PlanEndTime          | 计划结束时间               |
+| RealStartTime        | 实际开始时间               |
+| RealEndTime          | 实际结束时间               |
+| CreatedTime          | 创建时间                 |
+| CompleteTime         | 结单时间                 |
+| ImpactPowerOff       | 影响电力中断               |
+| ImpactAreaType       | 影响范围类型               |
+| Rack                 | 机架                   |
+| L1Motor              | 一级机房                 |
+| NormalImpact         | 正常影响描述               |
+| AbnormalImpact       | 异常影响描述               |
+| Status               | 子单执行状态：未执行/执行中/执行结束  |
+| Id                   | Id                   |
+| DeviceSonList        | 设备信息                 |
+| MotorManageUnit      | 机房管理单元               |
+| AlarmConvergenceRate | 告警收敛率                |
+| CanyuName            | 参与人                  |
+| ChangessResult       | 变更结果：成功/失败/异常/取消     |
+| ChangeSummary        | 变更结果说明               |
+| SummaryDocument      | 变更总结(异常变更上传文档)       |
+| ConfirmStatus        | 确认变更状态：未触发/待处理/已确认   |
+| ConfirmPerson        | 确认变更状态用户             |
+| CarryOutStatus       | 实施状态：未激活/待实施/实施中/已完成 |
+| AccountStatus        | 结单状态：未结单/已结单         |
+| ChangeName           | 变更名称                 |
+| ChangeLevel          | 变更级别                 |
+| ParkName             | 园区名称                 |
+| MozuName             | 模组名称                 |
+| ApprovalStatus       | 审批状态                 |
+| IsAuto               | 是否自动化                |
+| CTicketId            | 实施单dcops单号           |
+| ChangeSceneName      | 变更场景名称               |
+| Creator              | 创建人                  |
+| IsCharging           | 是否计费                 |
+| IsMoreSop            | 是否多设备                |
 
 **请求体：**
 
@@ -4041,32 +4041,32 @@ CREATE TABLE `change_child` (
 
 ## 服务台事件工单查询接口
 
-| 字段名 | 描述 | 数据类型 | 示例值 | 是否支持条件查询 |
-| --- | --- | --- | --- | --- |
-| EventTitle | 事件标题 | string | 南京江宁模组42 IT方仓电池组放电4min以上 | 否 |
-| ParkName | 园区名称 | string | 南京-江宁 | 是 |
-| MozuName | 模组名称 | string | 南京江宁模组42 | 是 |
-| Id | 事件单号 | string | E202512240553 | 是 |
-| EventLevel | 事件等级 | string | L0、L1、L2、L3、L4 | 是 |
-| EventOrderStatus | 事件工单状态 | string | 处理中、已结单、已挂起 | 是 |
-| EventDescribe | 事件描述 | string | 南京江宁模组42 IT方仓电池组放电4min以上 | 否 |
-| EventSource | 事件来源 | string | 现场反馈、监控告警··· | 是 |
-| EventCreatedTime | 事件创建时间 | string | 2025-12-24 10:47:29 | 是 |
-| EventEndTime | 事件结束时间 | string | 2025-12-24 10:47:29 | 是 |
-| EventEndReason | 事件结束原因 | string | 快速恢复-短时自复···· | 是 |
-| EventCreatedBy | 事件创建人 | string | 集中监控、用户ID-X | 是 |
-| IsWrongAlarm | 是否误报 | string | 是/否 | 是 |
-| InstructionManual | 备注说明 | string | 现场处理后恢复 | 否 |
-| IsChange | 是否变更 | string | 是/否 | 是 |
-| IsOnSite | 是否现场跟进 | string | 是/否 | 是 |
-| IsRepair | 是否转维修 | string | 是/否 | 是 |
-| ManualRecoveryTime | 人工恢复时间 | string | 2025-12-24 10:47:29 | 否 |
-| IsOverTime | 是否超时 | string | 是/否 | 是 |
-| IsFirstLevelEvent | 是否一级事件 | string | 是/否 | 是 |
-| EventTriggerReason | 事件触发原因 | string | XXXX | 否 |
-| EventOccurTime | 事件发生时间 | string | 2025-12-24 10:47:29 | 是 |
-| ChangeMark | 变更备注 | string | XXXX | 否 |
-| OnSiteTodoUser | 现场处理人 | string | 用户ID-X | 否 |
+| 字段名                | 描述     | 数据类型   | 示例值                      | 是否支持条件查询 |
+|--------------------|--------|--------|--------------------------|----------|
+| EventTitle         | 事件标题   | string | 南京江宁模组42 IT方仓电池组放电4min以上 | 否        |
+| ParkName           | 园区名称   | string | 南京-江宁                    | 是        |
+| MozuName           | 模组名称   | string | 南京江宁模组42                 | 是        |
+| Id                 | 事件单号   | string | E202512240553            | 是        |
+| EventLevel         | 事件等级   | string | L0、L1、L2、L3、L4           | 是        |
+| EventOrderStatus   | 事件工单状态 | string | 处理中、已结单、已挂起              | 是        |
+| EventDescribe      | 事件描述   | string | 南京江宁模组42 IT方仓电池组放电4min以上 | 否        |
+| EventSource        | 事件来源   | string | 现场反馈、监控告警···             | 是        |
+| EventCreatedTime   | 事件创建时间 | string | 2025-12-24 10:47:29      | 是        |
+| EventEndTime       | 事件结束时间 | string | 2025-12-24 10:47:29      | 是        |
+| EventEndReason     | 事件结束原因 | string | 快速恢复-短时自复····            | 是        |
+| EventCreatedBy     | 事件创建人  | string | 集中监控、用户ID-X              | 是        |
+| IsWrongAlarm       | 是否误报   | string | 是/否                      | 是        |
+| InstructionManual  | 备注说明   | string | 现场处理后恢复                  | 否        |
+| IsChange           | 是否变更   | string | 是/否                      | 是        |
+| IsOnSite           | 是否现场跟进 | string | 是/否                      | 是        |
+| IsRepair           | 是否转维修  | string | 是/否                      | 是        |
+| ManualRecoveryTime | 人工恢复时间 | string | 2025-12-24 10:47:29      | 否        |
+| IsOverTime         | 是否超时   | string | 是/否                      | 是        |
+| IsFirstLevelEvent  | 是否一级事件 | string | 是/否                      | 是        |
+| EventTriggerReason | 事件触发原因 | string | XXXX                     | 否        |
+| EventOccurTime     | 事件发生时间 | string | 2025-12-24 10:47:29      | 是        |
+| ChangeMark         | 变更备注   | string | XXXX                     | 否        |
+| OnSiteTodoUser     | 现场处理人  | string | 用户ID-X                   | 否        |
 
 **请求体：**
 
@@ -4118,9 +4118,9 @@ CREATE TABLE `change_child` (
 
 ## 查询事件单工单的关联设备
 
-| 参数名 | 类型 | 是否必填 | 描述 |
-| --- | --- | --- | --- |
-| EventIds | list | 是 | 工单号列表【必须大于1个单号、最大不能超过50个单号】 / 【必须用E开头的事件单号】 |
+| 参数名      | 类型   | 是否必填 | 描述                                          |
+|----------|------|------|---------------------------------------------|
+| EventIds | list | 是    | 工单号列表【必须大于1个单号、最大不能超过50个单号】 / 【必须用E开头的事件单号】 |
 
 **请求示例：**
 
@@ -4171,44 +4171,44 @@ CREATE TABLE `change_child` (
 
 ## DeviceDb-device_simple
 
-| 字段名 | 字段说明 |
-| --- | --- |
-| 设备编号 | DeviceNumber |
-| 逻辑系统 | SystemName |
-| 应用类型 | ApplicationTypeName |
-| 设备类型 | DevicetypesName |
-| 标准化品牌 | DeviceBrand |
-| IDCDB型号 | DeviceModel |
-| 所属设备编号 | DeviceBelongDeviceNumber |
-| 设备状态 | DeviceStatus |
-| 设备初验时间 | DeviceActivationTime |
-| 设备种类 | DeviceCategory |
-| 展示编号 | DeviceNumberShow |
-| 所属应用类型名称 | BelongApplicationTypeName |
-| 所属专业 | DeviceBelongrofessionName |
-| 序号 | DeviceNo |
-| 标牌生成数量 | AppLabelPasteMethod |
-| 区域编码 | IdcareaCode |
-| DeviceUid | DeviceUid |
-| 设备生产日期 | DeviceProdDate |
-| 楼宇 | BuildingName |
-| 完整应用类型 | AppCompleteName |
-| 重要级别 | ApplicationTypeImportLevel |
-| 设备名称 | DeviceName |
-| IDCDB品牌 | BrandName |
-| 标准化型号 | BrandModel |
-| 整机部件 | CompleteMachine |
-| 模组 | MozuName |
-| 是否监控 | IsMonitor |
-| 维保服务状态 | MaintenanceServiceStatus |
-| 路由设备编号 | DeviceNumberRoute |
-| 所属房间 | RoomName |
-| 设备终验时间 | DeviceFinalInspectionDate |
-| 方仓功能间 | FuncRoomName |
-| 区域名称 | IdcareaName |
-| 方仓功能间编码 | FuncRoomCode |
-| 设备型号id | DeviceModelId |
-| 是否录入生产日期 | AppIsExtendPara |
+| 字段名       | 字段说明                       |
+|-----------|----------------------------|
+| 设备编号      | DeviceNumber               |
+| 逻辑系统      | SystemName                 |
+| 应用类型      | ApplicationTypeName        |
+| 设备类型      | DevicetypesName            |
+| 标准化品牌     | DeviceBrand                |
+| IDCDB型号   | DeviceModel                |
+| 所属设备编号    | DeviceBelongDeviceNumber   |
+| 设备状态      | DeviceStatus               |
+| 设备初验时间    | DeviceActivationTime       |
+| 设备种类      | DeviceCategory             |
+| 展示编号      | DeviceNumberShow           |
+| 所属应用类型名称  | BelongApplicationTypeName  |
+| 所属专业      | DeviceBelongrofessionName  |
+| 序号        | DeviceNo                   |
+| 标牌生成数量    | AppLabelPasteMethod        |
+| 区域编码      | IdcareaCode                |
+| DeviceUid | DeviceUid                  |
+| 设备生产日期    | DeviceProdDate             |
+| 楼宇        | BuildingName               |
+| 完整应用类型    | AppCompleteName            |
+| 重要级别      | ApplicationTypeImportLevel |
+| 设备名称      | DeviceName                 |
+| IDCDB品牌   | BrandName                  |
+| 标准化型号     | BrandModel                 |
+| 整机部件      | CompleteMachine            |
+| 模组        | MozuName                   |
+| 是否监控      | IsMonitor                  |
+| 维保服务状态    | MaintenanceServiceStatus   |
+| 路由设备编号    | DeviceNumberRoute          |
+| 所属房间      | RoomName                   |
+| 设备终验时间    | DeviceFinalInspectionDate  |
+| 方仓功能间     | FuncRoomName               |
+| 区域名称      | IdcareaName                |
+| 方仓功能间编码   | FuncRoomCode               |
+| 设备型号id    | DeviceModelId              |
+| 是否录入生产日期  | AppIsExtendPara            |
 
 **请求体：**
 
