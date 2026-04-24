@@ -49,9 +49,7 @@
   "Data": {
     "SearchCondition": {
       "SN": [
-        "NC00168019",
-        "CA1G041140",
-        "..."
+        "NC00168019"
       ]
     }
   }
@@ -192,19 +190,22 @@ CREATE TABLE `inspection_main` (
     "SearchCondition": {
        "CampusName": "清远-清新",
       "MozuName": [
-        "清远清新模组11",
-        "清远清新模组12"
+        "清远清新模组11"
       ],
       "PlanningStartTime": {
          "gte": "2024-02-20 09:07:33" 
       } 
     },
-    "Sorts": [
+    "Sorts": [{
        "Column": "Id",
-      "SortType": "desc" ,
-      "Limit": {
-         "Size": 20,
-        "Start": 0
+      "SortType": "desc"
+    }],
+    "Limit": {
+       "Size": 20,
+      "Start": 0
+    }
+  }
+}
 ```
 
 **返回示例：**
@@ -229,6 +230,8 @@ CREATE TABLE `inspection_main` (
       } 
     ],
     "TotalRows": 1078
+}
+}
 ```
 
 ## 维护自建主表
@@ -649,7 +652,7 @@ CREATE TABLE `dg_maintenance_ticket_sub` (
      "due_time": "[string]",
     "service_manager": "[string]",
     "business_manager": "[string]",
-     "feedback_person": "[string]" "upload_data",
+     "feedback_person": "[string]"
   },
    "Method": "IspQcFeedback",
    "SystemId": "[string]" 
@@ -672,9 +675,8 @@ CREATE TABLE `dg_maintenance_ticket_sub` (
     "due_time": "2024-01-09 11:50:59",
     "service_manager": "xxx",
     "business_manager": "xxx",
-    "feedback_person": "Alice" "upload_data": [
-       "https://test.otob.dcops.qq.com/relay/cosfile/relay/20241017/data_b6c60636f0c740b56653536eb5d12433.csv",
-      "https://test.otob.dcops.qq.com/relay/cosfile/relay/20241015/44eb09c35a8b5b6a308bd21dc69942a_100dc4d6640a4eabdcc93424710b5ee1.jpg"
+    "feedback_person": "Alice", "upload_data": [
+       "https://test.otob.dcops.qq.com/relay/cosfile/relay/20241017/data_b6c60636f0c740b56653536eb5d12433.csv"
     ] 
   }
 }
@@ -705,7 +707,7 @@ CREATE TABLE `dg_maintenance_ticket_sub` (
      "reason": "[string]",
      "due_time": "[string]",
     "service_manager": "[string]",
-    "business_manager": "[string]",
+    "business_manager": "[string]"
   },
    "Method": "IspQcFeedback",
    "SystemId": "[string]" 
@@ -755,8 +757,7 @@ CREATE TABLE `dg_maintenance_ticket_sub` (
    "Data": {
     "service_ticket_id": "[string]",
     "improve_ticket_id": "[string]" ,
-    "implement_info": "[string]" ,
-    "feedback_upload_data",
+    "implement_info": "[string]" 
   },
    "Method": "ImplementFeedback",
    "SystemId": "[string]" 
@@ -775,8 +776,7 @@ CREATE TABLE `dg_maintenance_ticket_sub` (
     "improve_ticket_id": "20240711004295",
     "implement_info": "ok",
     "feedback_upload_data": [
-      "https://test.otob.dcops.qq.com/relay/cosfile/relay/20241017/data_b6c60636f0c740b56653536eb5d12433.csv",
-      "https://test.otob.dcops.qq.com/relay/cosfile/relay/20241015/44eb09c35a8b5b6a308bd21dc69942a_100dc4d6640a4eabdcc93424710b5ee1.jpg"
+      "https://test.otob.dcops.qq.com/relay/cosfile/relay/20241017/data_b6c60636f0c740b56653536eb5d12433.csv"
     ]
   }
 }
@@ -1505,7 +1505,7 @@ CREATE TABLE `repair_orders_ope_logs` (
    "Data": {
      "List": [
        {
-         "DealDetail": "{"是否需要厂家维修": "是", "诊断意见": null, "现场照片": null}",
+         "DealDetail": "{\"是否需要厂家维修\": \"是\", \"诊断意见\": null, \"现场照片\": null}",
         "DealUser": "v_iywjyang",
         "DealUserRole": "值班工程师",
         "EndTime": "2025-08-19 18:46:38",
@@ -1516,7 +1516,7 @@ CREATE TABLE `repair_orders_ope_logs` (
         "TicketId": "10250819026813" 
       },
       {
-         "DealDetail": "{"问题描述": "ces", "FMC审核结果": "通过", "FMC审核备注": "1", "business_pm": "Fo_杨波"}",
+         "DealDetail": "{\"问题描述\": \"ces\", \"FMC审核结果\": \"通过\", \"FMC审核备注\": \"1\", \"business_pm\": \"Fo_杨波\"}",
         "DealUser": "v_iywjyang",
         "DealUserRole": "FMC",
         "EndTime": "2025-08-19 18:46:46",
@@ -1545,6 +1545,8 @@ CREATE TABLE `repair_orders_ope_logs` (
      "professional": "[string]" ,
     "Method": "GetSceneLevelList",
     "SystemId": "[string]"
+}
+}
 ```
 
 **真实请求示例：**
@@ -1593,10 +1595,8 @@ CREATE TABLE `repair_orders_ope_logs` (
     "FacilitatorTicketId": "[string]",
     "campus": "[string]",
     "drill_major": "[string]",
-    ,
-    可选值: 公共系统、其它系统、弱电系统、暖通系统、消防系统、配电系统 "eop_url": [
-       "[mixed]",
-      "..." 
+    "eop_url": [
+       "[mixed]"
     ],
     "exercise_plan": "[string]",
     "gds_id": "[string]",
@@ -1604,30 +1604,28 @@ CREATE TABLE `repair_orders_ope_logs` (
     "plan_id": "[string]",
     "pm": "[string]",
     "region": "[string]",
-    ,
-    可选值: 华东，华北，华南，西南 "scene_level_1": "[string]",
+    "scene_level_1": "[string]",
     "scene_level_2": "[string]",
     "step1_notify": "[string]",
-    "step1_table": [
+    "step1_table": [{
        "check_item": "[string]",
       "check_point": "[string]",
       "score": "[mixed]",
       "step_main": "[string]",
-      "step_sn": "[mixed]" ,
-      "..." 
-    ],
+      "step_sn": "[mixed]" 
+    }],
     "step2_notify": "[string]",
-    "step2_table": [
+    "step2_table": [{
        "check_item": "[string]",
       "check_point": "[string]",
       "score": "[mixed]",
       "step_main": "[string]",
-      "step_sn": "[mixed]" ,
-      "..." 
-    ] 
+      "step_sn": "[mixed]" 
+    }] 
   },
   "Method": "CreateTicket",
   "SystemId": "[string]"
+}
 ```
 
 **重要字段说明：**
@@ -1703,6 +1701,7 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
     "msg": "",
     "status": 0
   }
+}
 ```
 
 ## 演练-演练方案查询
@@ -1736,12 +1735,15 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
     "SearchCondition": {
        "MozuName": [
         "清远清新模组11"
-      ] ,
-      "Sorts": [
-         ,
-        "Limit": {
-           "Size": 20,
-          "Start": 0
+      ]
+    },
+    "Sorts": [],
+    "Limit": {
+       "Size": 20,
+      "Start": 0
+    }
+  }
+}
 ```
 
 **成功返回示例：**
@@ -1765,8 +1767,7 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
         "Status": "正常",
         "Step1Notify": "xx开关断开",
         "Step2Notify": "PDU故障" 
-      },
-      ... 
+      }
     ],
     "TotalRows": 14 
   },
@@ -1803,6 +1804,10 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
       "Limit": {
          "Size": 20,
         "Start": 0
+}
+}
+}
+}
 ```
 
 **成功返回示例：**
@@ -1860,11 +1865,13 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
       "mozu_name": "[string]",
       "plan_id": "[string]",
       "plan_month": "[string]",
-      "status": "[string]" "等待派单"才能修为状态) 范围: 实施中/审核中/已取消/已完成/异常/异常取消/确认中/等待派单/计划内取消 
+      "status": "[string]"
     },
     "req_id": "[string]" ,
     "Method": "UpdatePlanTicket",
     "SystemId": "[string]"
+}
+}
 ```
 
 **重要字段说明：**
@@ -1958,17 +1965,18 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
   "Data": {
      "FacilitatorName": "万国",
     "FacilitatorTicketId": "5458769760998",
-    "plans": [
+    "plans": [{
        "drill_date": "[string]",
       "gds_id": "[string]",
       "mozu_name": "[string]",
       "plan_id": "[string]",
-      "plan_month": "[string]" ,
-      "..." 
-    ],
+      "plan_month": "[string]" 
+    }],
     "req_id": "[string]" ,
     "Method": "CreatePlanTicket",
     "SystemId": "[string]"
+}
+}
 ```
 
 **重要字段说明：**
@@ -2098,12 +2106,15 @@ req_id：必须保证值是唯一的字符串，由请求方生成，用于请�
     "SearchCondition": {
        "MozuName": [
         "清远清新模组11"
-      ] ,
-      "Sorts": [
-         ,
-        "Limit": {
-           "Size": 20,
-          "Start": 0
+      ]
+    },
+    "Sorts": [],
+    "Limit": {
+       "Size": 20,
+      "Start": 0
+    }
+  }
+}
 ```
 
 **成功返回示例：**
@@ -2133,8 +2144,7 @@ req_id：必须保证值是唯一的字符串，由请求方生成，用于请�
         "RegionName": "华南",
         "SceneLevel1": "",
         "TodoTicketId": "20240129002119" 
-      },
-      ... 
+      }
     ],
     "TotalRows": 14 
   },
@@ -2164,18 +2174,17 @@ req_id：必须保证值是唯一的字符串，由请求方生成，用于请�
     "optimizer": "[string]",
     "plan_id": "[string]",
     "plan_month": "[string]",
-    "problem_table": [
+    "problem_table": [{
        "discovery_date": "[string]",
       "is_risk": "[string]",
       "measure": "[string]",
       "plan_end_date": "[string]",
       "problem_content": "[string]",
       "problem_type": "[string]",
-      "users": "[string]" ,
-      "..." 
-    ],
+      "users": "[string]" 
+    }],
     "region_name": "[string]",
-    "step1_table": [
+    "step1_table": [{
        "check_item": "[string]",
       "check_point": "[string]",
       "ck": "[string]",
@@ -2183,10 +2192,9 @@ req_id：必须保证值是唯一的字符串，由请求方生成，用于请�
       "score": "[string]",
       "start_time": "[string]",
       "time_consum_end": "[int]",
-      "users": "[string]" ,
-      "..." 
-    ],
-    "step2_table": [
+      "users": "[string]" 
+    }],
+    "step2_table": [{
        "check_item": "[string]",
       "check_point": "[string]",
       "ck": "[string]",
@@ -2194,9 +2202,8 @@ req_id：必须保证值是唯一的字符串，由请求方生成，用于请�
       "score": "[string]",
       "start_time": "[string]",
       "time_consum_end": "[int]",
-      "users": "[string]" ,
-      "..." 
-    ],
+      "users": "[string]" 
+    }],
     "summary": "[string]",
     "tid": "[string]",
     "time_consum_end": "[int]",
@@ -2205,12 +2212,13 @@ req_id：必须保证值是唯一的字符串，由请求方生成，用于请�
     "txt_end_1": "[string]",
     "txt_start": "[string]",
     "upload_img": [
-       "[string]",
-      "..." 
+       "[string]"
     ],
     "users_select": "[string]" ,
     "Method": "CreateToDoTicketTicket",
     "SystemId": "[string]"
+}
+}
 ```
 
 **重要字段说明：**
@@ -2288,7 +2296,7 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
              "FileList": [
                {
                  "url": "https://test.otob.dcops.qq.com/relay/cosfile/relay/20251209/1765263232_7080992c3c975cdf4c2d7219ce373d70.png",
-                "name": "测试用.png",
+                "name": "测试用.png"
               } 
             ] 
           },
@@ -2324,6 +2332,8 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
      "ticket_id": "[string]" ,
     "Method": "GetToDoTicketTicketInfo",
     "SystemId": "[string]"
+}
+}
 ```
 
 **真实请求示例：**
@@ -2395,6 +2405,7 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
     "msg": "",
     "status": 0
   }
+}
 ```
 
 ## 演练-演练实施工单信息分页查询
@@ -2461,15 +2472,14 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
     },
     "SearchCondition": {
       "MozuName": [
-        "张家口怀来东园模组32",
-        "清远清新模组11"
+        "张家口怀来东园模组32"
       ],
       "TicketStatus": "已完成",
       "TicketCheckTime": {
         "gte": "2025-01-01 00:00:00",
         "lt": "2026-01-01 00:00:00"
       } ,
-      "Sorts": [
+      "Sorts": [{
          "Column": "TicketId",
         "SortType": "desc"
       }
@@ -2477,6 +2487,10 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
     "Limit": {
       "Size": 10,
       "Start": 0
+}
+}
+}
+}
 ```
 
 **成功返回示例：**
@@ -2534,8 +2548,7 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
         "TimeConsumEnd1": 27,
         "UsersCount": 1,
         "WorkingHoursCheck": ""
-      },
-      ...
+      }
     ],
     "TotalRows": 104
   },
@@ -2570,14 +2583,18 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
       "Users": "" ,
       "SearchCondition": {
          "TicketId": [
-          "20230913001231",
-          ...
+          "20230913001231"
         ] ,
         "Sorts": [
         ],
         "Limit": {
            "Size": 20,
           "Start": 0
+}
+}
+}
+}
+}
 ```
 
 **成功返回示例：**
@@ -2611,8 +2628,7 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
         "TicketId": "20230913001231",
         "TimeConsumEnd": 0,
         "Users": "leocxiong(熊操)" 
-      },
-      ... 
+      }
     ],
     "TotalRows": 13 
   },
@@ -2630,12 +2646,12 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
    "Action": "DrillCreateToDoTicket",
   "Data": {
      "ticket_ids": [
-       "[string]",
-      "..." 
+       "[string]"
     ] 
   },
   "Method": "GetToDoTicketAttachments",
   "SystemId": "[string]"
+}
 ```
 
 **真实请求示例：**
@@ -2645,8 +2661,7 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
   "Action": "DrillCreateToDoTicket",
   "Data": {
     "ticket_ids": [
-      "10250919002986",
-      "10250919003104"
+      "10250919002986"
     ]
   },
   "Method": "GetToDoTicketAttachments",
@@ -2694,6 +2709,8 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
      "ticket_id": "[string]" ,
     "Method": "GetToDoTicketPdfUrl",
     "SystemId": "[string]"
+}
+}
 ```
 
 **真实请求示例：**
@@ -2720,8 +2737,7 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
       "exc_info": "",
       "req_id": "bc8efe1f-1aa4-48d2-868e-463ad279e5dd",
       "result": [
-        "https://test.otob.dcops.qq.com/relay/cosfile/ylpdfzhuanxiang/2025-09-18 11:59:10 TABgvIlP2jrTdrill_order.pdf",
-        "中卫雅云模组51-主备供水泵故障导致空调供水异常演练报告-10250911003038"
+        "https://test.otob.dcops.qq.com/relay/cosfile/ylpdfzhuanxiang/2025-09-18 11:59:10 TABgvIlP2jrTdrill_order.pdf"
       ],
       "system_name": "proxy"
     },
@@ -2729,6 +2745,8 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
     "Return": 0 ,
     "msg": "",
     "status": 0
+}
+}
 ```
 
 ## 机架开关电-派单POST
@@ -2744,7 +2762,7 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
     "busiType": "[string]",
     "creator": "[string]",
     "desc": "[string]",
-    "deviceList": [
+    "deviceList": [{
        "assetId": "[string]",
       "idcUnitId": "[string]",
       "idcUnitName": "[string]",
@@ -2752,24 +2770,24 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
       "rackCode": "[string]",
       "rackId": "[string]",
       "rackSpCode": "[string]",
-      "sn": "[string]" ,
-      "..." 
-    ],
+      "sn": "[string]" 
+    }],
     "dispatchTime": "[string]",
     "expectTime": "[string]",
     "instanceId": "[string]",
     "projectType": "[string]",
-    "rackList": [
+    "rackList": [{
        "idcUnitId": "[string]",
       "idcUnitName": "[string]",
       "rackCode": "[string]",
       "rackId": "[string]",
-      "rackSpCode": "[string]" ,
-      "..." 
-    ],
+      "rackSpCode": "[string]" 
+    }],
     "taskId": "[string]" ,
     "Method": "CreateRackPowerTicket",
     "SystemId": "[string]"
+}
+}
 ```
 
 **成功返回示例：**
@@ -2794,6 +2812,8 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
     "taskId": "[string]" ,
     "Method": "GetRackPowerTicket",
     "SystemId": "[string]"
+}
+}
 ```
 
 **成功返回示例：**
@@ -2846,7 +2866,7 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
 {
    "Action": "RackPowerTicket",
   "Data": {
-     "racks": [
+     "racks": [{
        "app": "[string]",
       "busiType": "[string]",
       "creator": "[string]",
@@ -2855,23 +2875,21 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
       "expectTime": "[string]",
       "instanceId": "[string]",
       "projectType": "[string]",
-      "rackList": [
-         "deviceList": [
+      "rackList": [{
+         "deviceList": [{
            "assetId": "[string]",
           "pn": "[string]",
           "rackId": "[string]",
-          "sn": "[string]" ,
-          "..." 
-        ],
-        "rackId": "[string]" ,
-        "..." 
-      ],
-      "taskId": "[string]" ,
-      "..." 
-    ] 
+          "sn": "[string]" 
+        }],
+        "rackId": "[string]" 
+      }],
+      "taskId": "[string]" 
+    }] 
   },
   "Method": "CreateRackPowerTicketList",
   "SystemId": "[string]"
+}
 ```
 
 **成功返回示例：**
@@ -3604,6 +3622,8 @@ CREATE TABLE `requirement_records` (
     "interview_start_time": "202511150000",
     "name": "王五",
     "requirement_ticket": "20250930042269"
+}
+}
 ```
 
 **返回示例：**
@@ -3651,6 +3671,8 @@ CREATE TABLE `requirement_records` (
     "requirement_ticket": "20250930042298",
     "ticket_id": "1234567890",
     "user_name": "v_zixxyang"
+}
+}
 ```
 
 **返回示例：**
@@ -4131,15 +4153,7 @@ CREATE TABLE `change_child` (
   "ReqId": "ifob-fredhbpo1sd7t85gq",
   "Data": {
     "E202512240553": [
-      "NJ-JN-BD04-BTA304B-BTMM-ITBR01",
-      "NJ-JN-BD04-BTA304B-BTMM-ITBR02",
-      "NJ-JN-BD04-BTA304B-BTMM-ITBR03",
-      "NJ-JN-BD04-BTA304B-BTMN-ITBR02",
-      "NJ-JN-BD04-BTA304B-BTMN-ITBR01",
-      "NJ-JN-BD04-BTA304B-BTMN-ITBR03",
-      "NJ-JN-BD04-BTA304B-BTMP-ITBR02",
-      "NJ-JN-BD04-BTA304B-BTMP-ITBR03",
-      "NJ-JN-BD04-BTA304B-BTMP-ITBR01"
+      "NJ-JN-BD04-BTA304B-BTMM-ITBR01"
     ]
   }
 }
@@ -4151,14 +4165,6 @@ CREATE TABLE `change_child` (
 {
    "data": null,
   "msg": "事件单号不能为空",
-  "status": 400
-}{
-   "data": null,
-  "msg": "事件单号列表长度不能超过50",
-  "status": 400
-}{
-   "data": null,
-  "msg": "事件单数据库出错",
   "status": 400
 }
 ```
@@ -4518,7 +4524,7 @@ CREATE TABLE `simple_sub_ticket` (
         "DeviceName": "",
         "DeviceNumber": "SH-BX-BD3-C151-CST-05;SH-BX-BD3-C151-CST-06;SH-BX-BD3-C151-CST-07;SH-BX-BD3-C151-CST-08",
         "DevicetypesName": "蓄冷罐",
-        "EndFile": "[{"raw": {"uid": 1748509291766}, "uid": 1748509291766, "name": "7441c216a94d29fcd97f76fda453028.jpg", "size": 264573, "status": "success", "response": {"FileList": [{"uid": 1748509291968, "url": "https: ", "name": "7441c216a94d29fcd97f76fda453028.jpg", "status": "success"}]}, "percentage": 100}]",
+        "EndFile": "[{\"raw\": {\"uid\": 1748509291766}, \"uid\": 1748509291766, \"name\": \"7441c216a94d29fcd97f76fda453028.jpg\", \"size\": 264573, \"status\": \"success\", \"response\": {\"FileList\": [{\"uid\": 1748509291968, \"url\": \"https: \", \"name\": \"7441c216a94d29fcd97f76fda453028.jpg\", \"status\": \"success\"}]}, \"percentage\": 100}]",
         "EndTime": "2025-05-29 17:01:34",
         "FaceDetail": "",
         "FaceDetectResult": "",
@@ -4642,7 +4648,7 @@ CREATE TABLE `emp_competency_assessment_1` (
         "TIdcAsstManager": "mikexdhuang;zhongyshen",
         "TotalScore": 96 
       } 
-    ] "TotalRows": 22 
+    ], "TotalRows": 22 
   }
 }
 ```
@@ -4771,9 +4777,10 @@ CREATE TABLE `service_training_results_record` (
         "TrainingDate": "2024-06-07 08:00:00",
         "TrainingName": "Dcops维护线上化培训",
         "UpdateTime": "2024-06-07 10:23:02" 
-      } "TotalRows": 122 
+      }],
+      "TotalRows": 122
     }
-  }
+}
 ```
 
 ## 运维培训数据
