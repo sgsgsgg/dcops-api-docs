@@ -3,16 +3,16 @@
   "info": {
     "title": "DCOPS 运维平台 API",
     "version": "1.0.0",
-    "description": "腾讯 IDC 运维平台对外服务接口文档，提供巡检、维护、维修、演练、变更、安全管理等功能的 RESTful API 接口。\n\n## 请求鉴权（HMAC-SHA-512 签名）\n\n所有请求必须在 HTTP Header 中携带 `Authorization` 字段，格式为：\n\n```\nAuthorization: HMAC-SHA-512 Timestamp=<unix_ts>,Signature=<hex_sig>,SystemId=<system_id>\n```\n\n- `Timestamp`：当前 Unix 时间戳（秒级，10 位整数）\n- `Signature`：`HmacSHA512(Timestamp + RequestBody, hexDecode(appkey))` 的 HEX 字符串\n- `SystemId`：系统 ID（由管理员分配，如 `120`、`121`）\n\n### Postman 预执行脚本（Pre-request Script）\n\n```javascript\nvar ts = Math.floor(Date.now() / 1000);\nvar body = \"\" + ts + request.data;\nvar appkey = \"xxx\";       // 替换为真实 appkey（HEX 字符串）\nvar SystemId = \"121\";     // 替换为真实 SystemId\nvar sig = CryptoJS.HmacSHA512(body, CryptoJS.enc.Hex.parse(appkey));\nvar hd = \"HMAC-SHA-512 Timestamp=\" + ts + \",Signature=\" + sig + \",SystemId=\" + SystemId;\npostman.setEnvironmentVariable(\"authorization\", hd);\n```\n\n在 Postman 的 Headers 中添加：`Authorization: {{authorization}}`\n\n### Python 签名示例\n\n```python\nimport hmac, hashlib, time, json, requests\n\ndef build_auth(body: str, appkey_hex: str, system_id: str) -> str:\n    ts = str(int(time.time()))\n    key = bytes.fromhex(appkey_hex)\n    sig = hmac.new(key, (ts + body).encode(), hashlib.sha512).hexdigest()\n    return f\"HMAC-SHA-512 Timestamp={ts},Signature={sig},SystemId={system_id}\"\n\nurl = \"https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre\"\nbody = json.dumps({\"Action\": \"ServiceQueryData\", \"SchemaId\": \"inspection_main_service\",\n                   \"Method\": \"Run\", \"SystemId\": \"121\", \"Data\": {}})\nresp = requests.post(url, data=body, headers={\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": build_auth(body, appkey_hex=\"xxx\", system_id=\"121\"),\n})\nprint(resp.json())\n```\n\n### Go 签名示例\n\n```go\nimport (\n    \"crypto/hmac\"; \"crypto/sha512\"; \"encoding/hex\"\n    \"fmt\"; \"strconv\"; \"time\"\n)\n\nfunc buildAuth(body, appkeyHex, systemID string) string {\n    ts := strconv.FormatInt(time.Now().Unix(), 10)\n    key, _ := hex.DecodeString(appkeyHex)\n    h := hmac.New(sha512.New, key)\n    h.Write([]byte(ts + body))\n    return fmt.Sprintf(\"HMAC-SHA-512 Timestamp=%s,Signature=%s,SystemId=%s\",\n        ts, hex.EncodeToString(h.Sum(nil)), systemID)\n}\n```\n\n### 在 Swagger UI 中试用\n\n1. 在 Postman / 脚本中生成 `Authorization` 字符串\n2. 点击本页顶部 **Authorize** 按钮，将整段字符串贴入 `ApiKeyAuth` 输入框\n3. 锁定后所有 \"Try it out\" 请求自动带上该 header\n4. 注意：签名通常只在几分钟内有效，超期需重新生成\n\n"
+    "description": "> 📝 **在 Apifox 中使用**：文档导入后，请在 `项目设置 → 环境管理` 中确认已自动生成\n> \"测试环境\" / \"正式环境\"；若未生成，请手动添加：\n>  - 测试环境 baseUrl：`https://dcops.test.tencent.com/relay/open/ifob/rapi`\n>  - 正式环境 baseUrl：`https://dcops.idc.tencent.com/relay/open/ifob/rapi`\n>  - 并在请求头中添加 `Authorization`（使用下方\"请求鉴权\"章节的脚本生成）\n\n腾讯 IDC 运维平台对外服务接口文档，提供巡检、维护、维修、演练、变更、安全管理等功能的 RESTful API 接口。\n\n## 请求鉴权（HMAC-SHA-512 签名）\n\n所有请求必须在 HTTP Header 中携带 `Authorization` 字段，格式为：\n\n```\nAuthorization: HMAC-SHA-512 Timestamp=<unix_ts>,Signature=<hex_sig>,SystemId=<system_id>\n```\n\n- `Timestamp`：当前 Unix 时间戳（秒级，10 位整数）\n- `Signature`：`HmacSHA512(Timestamp + RequestBody, hexDecode(appkey))` 的 HEX 字符串\n- `SystemId`：系统 ID（由管理员分配，如 `120`、`121`）\n\n### Postman 预执行脚本（Pre-request Script）\n\n```javascript\nvar ts = Math.floor(Date.now() / 1000);\nvar body = \"\" + ts + request.data;\nvar appkey = \"xxx\";       // 替换为真实 appkey（HEX 字符串）\nvar SystemId = \"121\";     // 替换为真实 SystemId\nvar sig = CryptoJS.HmacSHA512(body, CryptoJS.enc.Hex.parse(appkey));\nvar hd = \"HMAC-SHA-512 Timestamp=\" + ts + \",Signature=\" + sig + \",SystemId=\" + SystemId;\npostman.setEnvironmentVariable(\"authorization\", hd);\n```\n\n在 Postman 的 Headers 中添加：`Authorization: {{authorization}}`\n\n### Python 签名示例\n\n```python\nimport hmac, hashlib, time, json, requests\n\ndef build_auth(body: str, appkey_hex: str, system_id: str) -> str:\n    ts = str(int(time.time()))\n    key = bytes.fromhex(appkey_hex)\n    sig = hmac.new(key, (ts + body).encode(), hashlib.sha512).hexdigest()\n    return f\"HMAC-SHA-512 Timestamp={ts},Signature={sig},SystemId={system_id}\"\n\nurl = \"https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre\"\nbody = json.dumps({\"Action\": \"ServiceQueryData\", \"SchemaId\": \"inspection_main_service\",\n                   \"Method\": \"Run\", \"SystemId\": \"121\", \"Data\": {}})\nresp = requests.post(url, data=body, headers={\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": build_auth(body, appkey_hex=\"xxx\", system_id=\"121\"),\n})\nprint(resp.json())\n```\n\n### Go 签名示例\n\n```go\nimport (\n    \"crypto/hmac\"; \"crypto/sha512\"; \"encoding/hex\"\n    \"fmt\"; \"strconv\"; \"time\"\n)\n\nfunc buildAuth(body, appkeyHex, systemID string) string {\n    ts := strconv.FormatInt(time.Now().Unix(), 10)\n    key, _ := hex.DecodeString(appkeyHex)\n    h := hmac.New(sha512.New, key)\n    h.Write([]byte(ts + body))\n    return fmt.Sprintf(\"HMAC-SHA-512 Timestamp=%s,Signature=%s,SystemId=%s\",\n        ts, hex.EncodeToString(h.Sum(nil)), systemID)\n}\n```\n\n### 在 Swagger UI 中试用\n\n1. 在 Postman / 脚本中生成 `Authorization` 字符串\n2. 点击本页顶部 **Authorize** 按钮，将整段字符串贴入 `ApiKeyAuth` 输入框\n3. 锁定后所有 \"Try it out\" 请求自动带上该 header\n4. 注意：签名通常只在几分钟内有效，超期需重新生成\n\n"
   },
   "servers": [
     {
       "url": "https://dcops.test.tencent.com/relay/open/ifob/rapi",
-      "description": "测试环境"
+      "description": "测试环境 (Testing)"
     },
     {
       "url": "https://dcops.idc.tencent.com/relay/open/ifob/rapi",
-      "description": "正式环境"
+      "description": "正式环境 (Production)"
     }
   ],
   "tags": [
@@ -12832,5 +12832,49 @@
     {
       "ApiKeyAuth": []
     }
-  ]
+  ],
+  "x-apifox-orders": [
+    "巡检管理",
+    "维护管理",
+    "维修管理",
+    "变更管理",
+    "事件管理",
+    "演练管理",
+    "设备管理",
+    "机架开关电",
+    "安全管理",
+    "服务改善",
+    "人员招聘",
+    "培训管理",
+    "通用查询"
+  ],
+  "x-apifox-environments": [
+    {
+      "name": "测试环境",
+      "baseUrl": "https://dcops.test.tencent.com/relay/open/ifob/rapi",
+      "parameters": {
+        "header": [
+          {
+            "name": "Authorization",
+            "value": "HMAC-SHA-512 Timestamp=<ts>,Signature=<sig>,SystemId=<sid>",
+            "description": "HMAC-SHA-512 鉴权头，详见首页\"请求鉴权\"章节"
+          }
+        ]
+      }
+    },
+    {
+      "name": "正式环境",
+      "baseUrl": "https://dcops.idc.tencent.com/relay/open/ifob/rapi",
+      "parameters": {
+        "header": [
+          {
+            "name": "Authorization",
+            "value": "HMAC-SHA-512 Timestamp=<ts>,Signature=<sig>,SystemId=<sid>",
+            "description": "HMAC-SHA-512 鉴权头，详见首页\"请求鉴权\"章节"
+          }
+        ]
+      }
+    }
+  ],
+  "x-apifox-default-server-index": 0
 }
