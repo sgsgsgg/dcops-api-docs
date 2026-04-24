@@ -162,7 +162,7 @@
                 "SystemId": "120",
                 "SchemaId": "maintenance_ticket_main_service",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "维护",
                 "Data": {
                   "ResultColumns": {
                     "TicketId": "",
@@ -237,7 +237,7 @@
                 "SystemId": "120",
                 "SchemaId": "dg_maintenance_ticket_sub_service",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "维护",
                 "Data": {
                   "ResultColumns": {
                     "InstanceId": "",
@@ -312,7 +312,7 @@
                 "SystemId": "120",
                 "SchemaId": "maintenance_work_order_read",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "维修",
                 "Data": {
                   "ResultColumns": {
                     "MaintenanceId": "",
@@ -384,10 +384,10 @@
               "example": {
                 "Action": "ServiceQueryData",
                 "Method": "Run",
-                "SystemId": "120",
+                "SystemId": "1",
                 "SchemaId": "repair_orders",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "维修",
                 "Data": {
                   "ResultColumns": {
                     "CampusName": "",
@@ -459,10 +459,10 @@
               "example": {
                 "Action": "ServiceQueryData",
                 "Method": "Run",
-                "SystemId": "120",
+                "SystemId": "1",
                 "SchemaId": "repair_orders_ope_logs",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "维修",
                 "Data": {
                   "ResultColumns": {
                     "TicketId": "",
@@ -535,7 +535,6 @@
                 "SystemId": "120",
                 "SchemaId": "service_person",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
                 "Data": {
                   "ResultColumns": {
                     "UserRealName": "",
@@ -610,7 +609,6 @@
                 "SystemId": "120",
                 "SchemaId": "service_common_ticket",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
                 "Data": {
                   "ResultColumns": {
                     "CampusName": "",
@@ -685,7 +683,7 @@
                 "SystemId": "120",
                 "SchemaId": "simple_main_ticket",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "维护",
                 "Data": {
                   "ResultColumns": {
                     "CreateTime": "",
@@ -760,7 +758,7 @@
                 "SystemId": "120",
                 "SchemaId": "simple_sub_ticket",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "维护",
                 "Data": {
                   "ResultColumns": {
                     "TaskId": "",
@@ -832,10 +830,10 @@
               "example": {
                 "Action": "ServiceQueryData",
                 "Method": "Run",
-                "SystemId": "120",
+                "SystemId": "121",
                 "SchemaId": "emp_competency_assessment_1",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "培训",
                 "Data": {
                   "ResultColumns": {
                     "Campus": "",
@@ -907,10 +905,10 @@
               "example": {
                 "Action": "ServiceQueryData",
                 "Method": "Run",
-                "SystemId": "120",
+                "SystemId": "121",
                 "SchemaId": "change_info_read_only",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "变更",
                 "Data": {
                   "ResultColumns": {
                     "Id": "",
@@ -982,10 +980,10 @@
               "example": {
                 "Action": "ServiceQueryData",
                 "Method": "Run",
-                "SystemId": "120",
+                "SystemId": "121",
                 "SchemaId": "change_child_read_only",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "变更",
                 "Data": {
                   "ResultColumns": {
                     "CId": "",
@@ -1057,10 +1055,10 @@
               "example": {
                 "Action": "ServiceQueryData",
                 "Method": "Run",
-                "SystemId": "120",
+                "SystemId": "121",
                 "SchemaId": "service_training_results_record",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "培训",
                 "Data": {
                   "ResultColumns": {
                     "ScopeOfTraining": "",
@@ -1132,10 +1130,10 @@
               "example": {
                 "Action": "ServiceQueryData",
                 "Method": "Run",
-                "SystemId": "120",
+                "SystemId": "121",
                 "SchemaId": "training_results_record",
                 "ReturnTotalRows": 0,
-                "BussType": "巡检",
+                "BussType": "培训",
                 "Data": {
                   "ResultColumns": {
                     "ScopeOfTraining": "",
@@ -2409,7 +2407,7 @@
               },
               "example": {
                 "Action": "QueryData",
-                "Method": "run",
+                "Method": "Run",
                 "SystemId": "1",
                 "SchemaId": "drill_cd_sub_plan",
                 "ReturnTotalRows": 0,
@@ -2483,7 +2481,7 @@
               },
               "example": {
                 "Action": "QueryData",
-                "Method": "run",
+                "Method": "Run",
                 "SystemId": "1",
                 "SchemaId": "drill_cd_sub_plan_step",
                 "ReturnTotalRows": 0,
@@ -2554,7 +2552,7 @@
               },
               "example": {
                 "Action": "QueryData",
-                "Method": "run",
+                "Method": "Run",
                 "SystemId": "1",
                 "SchemaId": "drill_standard_calendar",
                 "ReturnTotalRows": 0,
@@ -2628,8 +2626,8 @@
               },
               "example": {
                 "Action": "QueryData",
-                "Method": "run",
-                "SystemId": "1",
+                "Method": "Run",
+                "SystemId": "2",
                 "SchemaId": "drill_tode_ticket_info",
                 "ReturnTotalRows": 0,
                 "Data": {
@@ -2702,7 +2700,7 @@
               },
               "example": {
                 "Action": "QueryData",
-                "Method": "run",
+                "Method": "Run",
                 "SystemId": "1",
                 "SchemaId": "drill_step_list",
                 "ReturnTotalRows": 0,
@@ -2780,6 +2778,7 @@
                 "SystemId": "121",
                 "SchemaId": "device_simple",
                 "ReturnTotalRows": 0,
+                "BussType": "DeviceDb",
                 "Data": {
                   "ResultColumns": {
                     "DeviceNumber": "",
@@ -2804,8 +2803,7 @@
                     "Size": 20,
                     "Start": 0
                   }
-                },
-                "BussType": "设备管理"
+                }
               }
             }
           }
@@ -2855,6 +2853,7 @@
                 "SystemId": "121",
                 "SchemaId": "event_work_order",
                 "ReturnTotalRows": 0,
+                "BussType": "事件",
                 "Data": {
                   "ResultColumns": {
                     "EventTitle": "",
@@ -2879,8 +2878,7 @@
                     "Size": 20,
                     "Start": 0
                   }
-                },
-                "BussType": "事件管理"
+                }
               }
             }
           }
@@ -2929,24 +2927,17 @@
                 "Method": "Run",
                 "SystemId": "121",
                 "SchemaId": "event_alarm_device_info",
-                "ReturnTotalRows": 0,
+                "BussType": "事件",
+                "AppendInfo": {
+                  "EventIds": [
+                    "E202512240553"
+                  ]
+                },
                 "Data": {
                   "ResultColumns": {
                     "DeviceList": ""
-                  },
-                  "SearchCondition": {},
-                  "Sorts": [
-                    {
-                      "Column": "Id",
-                      "SortType": "desc"
-                    }
-                  ],
-                  "Limit": {
-                    "Size": 20,
-                    "Start": 0
                   }
-                },
-                "BussType": "事件管理"
+                }
               }
             }
           }
@@ -2993,31 +2984,23 @@
               "example": {
                 "Action": "ServiceQueryData",
                 "Method": "Run",
-                "SystemId": "121",
+                "SystemId": "120",
                 "SchemaId": "event_operation_log",
                 "ReturnTotalRows": 0,
+                "BussType": "维修",
                 "Data": {
                   "ResultColumns": {
                     "Id": "",
-                    "EventId": "",
-                    "OperationType": "",
-                    "OperationUser": "",
-                    "OperationTime": "",
-                    "OperationContent": ""
+                    "NodeName": "",
+                    "UpdatedBy": "",
+                    "UpdatedTime": "",
+                    "DealDetail": "",
+                    "MaintenanceId": ""
                   },
-                  "SearchCondition": {},
-                  "Sorts": [
-                    {
-                      "Column": "Id",
-                      "SortType": "desc"
-                    }
-                  ],
-                  "Limit": {
-                    "Size": 20,
-                    "Start": 0
+                  "SearchCondition": {
+                    "MaintenanceId": "20240815011129"
                   }
-                },
-                "BussType": "事件管理"
+                }
               }
             }
           }
@@ -3064,31 +3047,93 @@
               "example": {
                 "Action": "ServiceQueryData",
                 "Method": "Run",
-                "SystemId": "121",
+                "SystemId": "2",
                 "SchemaId": "human_recruit",
                 "ReturnTotalRows": 0,
+                "BussType": "人员招聘",
+                "Data": {
+                  "ResultColumns": {
+                    "TicketId": "",
+                    "CreatedAt": "",
+                    "Name": "",
+                    "ResumeStatus": "",
+                    "ServiceProvider": "",
+                    "RequirementTicket": ""
+                  },
+                  "SearchCondition": {
+                    "RequirementTicket": "20250922028961"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "查询成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/query/recruit_requirement": {
+      "post": {
+        "tags": [
+          "人员管理"
+        ],
+        "summary": "查询招聘需求单",
+        "description": "通过 ServiceQueryData 接口查询 招聘需求单 数据，支持条件筛选、排序和分页",
+        "operationId": "query_recruit_requirement",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              },
+              "example": {
+                "Action": "ServiceQueryData",
+                "Method": "Run",
+                "SystemId": "2",
+                "SchemaId": "recruit_requirement",
+                "ReturnTotalRows": 0,
+                "BussType": "人员招聘",
                 "Data": {
                   "ResultColumns": {
                     "Id": "",
-                    "Name": "",
-                    "Position": "",
-                    "Status": "",
-                    "CreateTime": "",
-                    "Campus": ""
+                    "TicketId": "",
+                    "CreatedAt": "",
+                    "UpdatedAt": "",
+                    "RequirementTicket": "",
+                    "BillingPosition": "",
+                    "RequirementStatus": "",
+                    "RequirementType": "",
+                    "ServiceProvider": "",
+                    "GroupName": "",
+                    "NeedCnt": "",
+                    "ExpectTime": "",
+                    "Workplace": ""
                   },
-                  "SearchCondition": {},
-                  "Sorts": [
-                    {
-                      "Column": "Id",
-                      "SortType": "desc"
-                    }
-                  ],
-                  "Limit": {
-                    "Size": 20,
-                    "Start": 0
+                  "SearchCondition": {
+                    "RequirementTicket": "20250922028961"
                   }
-                },
-                "BussType": "人员管理"
+                }
               }
             }
           }
@@ -3132,16 +3177,18 @@
         "properties": {
           "Action": {
             "type": "string",
-            "description": "操作类型，查询接口固定为 ServiceQueryData",
+            "description": "操作类型：服务商查询用 ServiceQueryData，演练内部查询用 QueryData",
             "enum": [
-              "ServiceQueryData"
+              "ServiceQueryData",
+              "QueryData"
             ]
           },
           "Method": {
             "type": "string",
             "description": "方法名，固定为 Run",
             "enum": [
-              "Run"
+              "Run",
+              "run"
             ]
           },
           "SystemId": {
