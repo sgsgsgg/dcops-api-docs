@@ -201,41 +201,34 @@ CREATE TABLE `inspection_main` (
     },
     "Sorts": [
        "Column": "Id",
-      "SortType": "desc" 
-    } 
-  ],
-  "Limit": {
-     "Size": 20,
-    "Start": 0 
-  } 
-}
-}
+      "SortType": "desc" ,
+      "Limit": {
+         "Size": 20,
+        "Start": 0
 ```
 
 **返回示例：**
 
 ```json
 {
-  "Return": 0,
+   "Return": 0,
   "Details": "",
   "ReqId": "fob-gnetopsd0nyg51pfngg",
   "Data": {
-    "List": [
-      {
-        "Id": 123,
+     "List": [
+       {
+         "Id": 123,
         "TaskName": "仪征东升模组11_日常巡检_2023-05-11 18:00:06",
         "TicketId": "20230511002045",
-        "UpdateTime": "2024-02-20 17:07:33"
+        "UpdateTime": "2024-02-20 17:07:33" 
       },
       {
-        "TaskName": "仪征东升模组11_日常巡检_2023-05-18 06:00:03",
+         "TaskName": "仪征东升模组11_日常巡检_2023-05-18 06:00:03",
         "TicketId": "20230518001296",
-        "UpdateTime": "2024-02-20 16:57:49"
-      }
+        "UpdateTime": "2024-02-20 16:57:49" 
+      } 
     ],
     "TotalRows": 1078
-  }
-}
 ```
 
 ## 维护自建主表
@@ -643,45 +636,25 @@ CREATE TABLE `dg_maintenance_ticket_sub` (
 
 **字段说明：**
 
-**示例：**
-
 ```json
 {
-```
-
-"Action":"ServiceImprove",     //原样填写
-
-"Data":{
-
-"service_ticket_id":"[string]",     //服务单号(必填)
-
-"improve_ticket_id"："[string]" ,    //质量改进单号(必填)
-
-"service_type": "[string]",   //服务类型（必填）
-
-"isp_ticket_id":"[string]",     //服务商单号(必填)
-
-"measure":"[string]",     //整改措施(必填)
-
-"reason":"[string]",     //原因分析(必填)
-
-"due_time":"[string]",     //整改措施计划完成时间(必填)
-
-"service_manager":"[string]",  //服务经理确认(必填)
-
-"business_manager":"[string]", //商务经理确认(必填)
-
-"feedback_person"："[string]" //责任人(必填)
-
-"upload_data",  //反馈附件数据(非必填)
-
-},
-
-"Method":"IspQcFeedback",     //原样填写
-
-"SystemId":"[string]"     //(*必填) (可取值区间为[>0]) (要求数据类型[int]) 调用方系统标识
-
+   "Action": "ServiceImprove",
+   "Data": {
+    "service_ticket_id": "[string]",
+    "improve_ticket_id": "[string]" ,
+    "service_type": "[string]",
+     "isp_ticket_id": "[string]",
+     "measure": "[string]",
+     "reason": "[string]",
+     "due_time": "[string]",
+    "service_manager": "[string]",
+    "business_manager": "[string]",
+     "feedback_person": "[string]" "upload_data",
+  },
+   "Method": "IspQcFeedback",
+   "SystemId": "[string]" 
 }
+```
 
 **请求示例：**
 
@@ -721,39 +694,23 @@ CREATE TABLE `dg_maintenance_ticket_sub` (
 
 **字段说明：**
 
-**示例：**
-
 ```json
 {
-```
-
-"Action":"ServiceImprove",     //原样填写
-
-"Data":{
-
-"service_ticket_id":"[string]",     //服务单号(必填)
-
-"feedback_person":"[string]",     //反馈人(必填)
-
-"isp_ticket_id":"[string]",     //服务商单号(必填)
-
-"measure":"[string]",     //整改措施(必填)
-
-"reason":"[string]",     //原因分析(必填)
-
-"due_time":"[string]",     //整改措施计划完成时间(必填)
-
-"service_manager":"[string]",  //服务经理确认(必填)
-
-"business_manager":"[string]", //商务经理确认(必填)
-
-},
-
-"Method":"IspQcFeedback",     //原样填写
-
-"SystemId":"[string]"     //(*必填) (可取值区间为[>0]) (要求数据类型[int]) 调用方系统标识
-
+   "Action": "ServiceImprove",
+   "Data": {
+    "service_ticket_id": "[string]",
+     "feedback_person": "[string]",
+     "isp_ticket_id": "[string]",
+     "measure": "[string]",
+     "reason": "[string]",
+     "due_time": "[string]",
+    "service_manager": "[string]",
+    "business_manager": "[string]",
+  },
+   "Method": "IspQcFeedback",
+   "SystemId": "[string]" 
 }
+```
 
 **请求示例：**
 
@@ -792,31 +749,19 @@ CREATE TABLE `dg_maintenance_ticket_sub` (
 
 **字段说明：**
 
-**示例：**
-
 ```json
 {
-```
-
-"Action":"ServiceImprove",     //原样填写
-
-"Data":{
-
-"service_ticket_id":"[string]",     //服务单号(必填)
-
-"improve_ticket_id"："[string]" ,    //质量改进单号(必填)
-
-"implement_info":"[string]" ,  //整改落地详情(必填)
-
-"feedback_upload_data",  //反馈附件数据(非必填)
-
-},
-
-"Method":"ImplementFeedback",     //原样填写
-
-"SystemId":"[string]"     //(*必填) (可取值区间为[>0]) (要求数据类型[int]) 调用方系统标识
-
+   "Action": "ServiceImprove",
+   "Data": {
+    "service_ticket_id": "[string]",
+    "improve_ticket_id": "[string]" ,
+    "implement_info": "[string]" ,
+    "feedback_upload_data",
+  },
+   "Method": "ImplementFeedback",
+   "SystemId": "[string]" 
 }
+```
 
 **请求示例：**
 
@@ -1597,14 +1542,9 @@ CREATE TABLE `repair_orders_ope_logs` (
 {
    "Action": "DrillAddOrEditPlan",
   "Data": {
-     "professional": "[string]" 
-  },
-  "Method": "GetSceneLevelList",
-  "SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+     "professional": "[string]" ,
+    "Method": "GetSceneLevelList",
+    "SystemId": "[string]"
 ```
 
 **真实请求示例：**
@@ -1673,27 +1613,21 @@ CREATE TABLE `repair_orders_ope_logs` (
       "check_point": "[string]",
       "score": "[mixed]",
       "step_main": "[string]",
-      "step_sn": "[mixed]" 
-    },
-    "..." 
-  ],
-  "step2_notify": "[string]",
-  "step2_table": [
-     "check_item": "[string]",
-    "check_point": "[string]",
-    "score": "[mixed]",
-    "step_main": "[string]",
-    "step_sn": "[mixed]" 
+      "step_sn": "[mixed]" ,
+      "..." 
+    ],
+    "step2_notify": "[string]",
+    "step2_table": [
+       "check_item": "[string]",
+      "check_point": "[string]",
+      "score": "[mixed]",
+      "step_main": "[string]",
+      "step_sn": "[mixed]" ,
+      "..." 
+    ] 
   },
-  "..." 
-] 
-},
-"Method": "CreateTicket",
-"SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+  "Method": "CreateTicket",
+  "SystemId": "[string]"
 ```
 
 **重要字段说明：**
@@ -1762,32 +1696,29 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
   "data": {
     "Data": {
       "InstanceId": "3200000157971",
-      "TicketId": 10250618005809
+      "TicketId": 10250618005809 ,
+      "Details": "",
+      "Return": 0
     },
-    "Details": "",
-    "Return": 0
-  },
-  "msg": "",
-  "status": 0
-}
+    "msg": "",
+    "status": 0
+  }
 ```
 
 ## 演练-演练方案查询
-
-**接口字段说明：**
 
 **真实请求示例：**
 
 ```json
 {
-  "Action": "QueryData",
+   "Action": "QueryData",
   "Method": "run",
   "SystemId": "1",
   "SchemaId": "drill_cd_sub_plan",
   "ReturnTotalRows": 1,
   "Data": {
-    "ResultColumns": {
-      "CampusName": "",
+     "ResultColumns": {
+       "CampusName": "",
       "CreateDate": "",
       "DrillMajor": "",
       "EopUrl": "",
@@ -1800,20 +1731,17 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
       "SceneLevel2": "",
       "Status": "",
       "Step1Notify": "",
-      "Step2Notify": ""
+      "Step2Notify": "" 
     },
     "SearchCondition": {
-      "MozuName": [
+       "MozuName": [
         "清远清新模组11"
-      ]
-    },
-    "Sorts": [],
-    "Limit": {
-      "Size": 20,
-      "Start": 0
-    }
-  }
-}
+      ] ,
+      "Sorts": [
+         ,
+        "Limit": {
+           "Size": 20,
+          "Start": 0
 ```
 
 **成功返回示例：**
@@ -1849,37 +1777,32 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
 
 ## 演练-演练方案步骤查询
 
-**接口字段说明：**
-
 **真实请求示例：**
 
 ```json
 {
-  "Action": "QueryData",
+   "Action": "QueryData",
   "Method": "run",
   "SystemId": "1",
   "SchemaId": "drill_cd_sub_plan_step",
   "ReturnTotalRows": 1,
   "Data": {
-    "ResultColumns": {
-      "CheckItem": "",
+     "ResultColumns": {
+       "CheckItem": "",
       "CheckPoint": "",
       "Id": "",
       "PlanId": "",
       "Score": "",
       "StepMain": "",
-      "StepSn": ""
+      "StepSn": "" 
     },
     "SearchCondition": {
-      "PlanId": "2cHFMjnvR2pQSNVBhpPocB"
-    },
-    "Sorts": [],
-    "Limit": {
-      "Size": 20,
-      "Start": 0
-    }
-  }
-}
+       "PlanId": "2cHFMjnvR2pQSNVBhpPocB" ,
+      "Sorts": [
+      ],
+      "Limit": {
+         "Size": 20,
+        "Start": 0
 ```
 
 **成功返回示例：**
@@ -1939,14 +1862,9 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
       "plan_month": "[string]",
       "status": "[string]" "等待派单"才能修为状态) 范围: 实施中/审核中/已取消/已完成/异常/异常取消/确认中/等待派单/计划内取消 
     },
-    "req_id": "[string]" 
-  },
-  "Method": "UpdatePlanTicket",
-  "SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+    "req_id": "[string]" ,
+    "Method": "UpdatePlanTicket",
+    "SystemId": "[string]"
 ```
 
 **重要字段说明：**
@@ -2045,18 +1963,12 @@ gds_id：必须保证值是唯一的字符串，由请求方生成
       "gds_id": "[string]",
       "mozu_name": "[string]",
       "plan_id": "[string]",
-      "plan_month": "[string]" 
-    },
-    "..." 
-  ],
-  "req_id": "[string]" 
-},
-"Method": "CreatePlanTicket",
-"SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+      "plan_month": "[string]" ,
+      "..." 
+    ],
+    "req_id": "[string]" ,
+    "Method": "CreatePlanTicket",
+    "SystemId": "[string]"
 ```
 
 **重要字段说明：**
@@ -2151,20 +2063,18 @@ req_id：必须保证值是唯一的字符串，由请求方生成，用于请�
 
 ## 演练-演练计划查询
 
-**接口字段说明：**
-
 **真实请求示例：**
 
 ```json
 {
-  "Action": "QueryData",
+   "Action": "QueryData",
   "Method": "run",
   "SystemId": "1",
   "SchemaId": "drill_standard_calendar",
   "ReturnTotalRows": 1,
   "Data": {
-    "ResultColumns": {
-      "CampusName": "",
+     "ResultColumns": {
+       "CampusName": "",
       "Dcfm": "",
       "DcmConfirm": "",
       "DcmTicketId": "",
@@ -2183,20 +2093,17 @@ req_id：必须保证值是唯一的字符串，由请求方生成，用于请�
       "PlanTicketId": "",
       "RegionName": "",
       "SceneLevel1": "",
-      "TodoTicketId": ""
+      "TodoTicketId": "" 
     },
     "SearchCondition": {
-      "MozuName": [
+       "MozuName": [
         "清远清新模组11"
-      ]
-    },
-    "Sorts": [],
-    "Limit": {
-      "Size": 20,
-      "Start": 0
-    }
-  }
-}
+      ] ,
+      "Sorts": [
+         ,
+        "Limit": {
+           "Size": 20,
+          "Start": 0
 ```
 
 **成功返回示例：**
@@ -2264,54 +2171,46 @@ req_id：必须保证值是唯一的字符串，由请求方生成，用于请�
       "plan_end_date": "[string]",
       "problem_content": "[string]",
       "problem_type": "[string]",
-      "users": "[string]" 
-    },
-    "..." 
-  ],
-  "region_name": "[string]",
-  "step1_table": [
-     "check_item": "[string]",
-    "check_point": "[string]",
-    "ck": "[string]",
-    "end_time": "[string]",
-    "score": "[string]",
-    "start_time": "[string]",
+      "users": "[string]" ,
+      "..." 
+    ],
+    "region_name": "[string]",
+    "step1_table": [
+       "check_item": "[string]",
+      "check_point": "[string]",
+      "ck": "[string]",
+      "end_time": "[string]",
+      "score": "[string]",
+      "start_time": "[string]",
+      "time_consum_end": "[int]",
+      "users": "[string]" ,
+      "..." 
+    ],
+    "step2_table": [
+       "check_item": "[string]",
+      "check_point": "[string]",
+      "ck": "[string]",
+      "end_time": "[string]",
+      "score": "[string]",
+      "start_time": "[string]",
+      "time_consum_end": "[int]",
+      "users": "[string]" ,
+      "..." 
+    ],
+    "summary": "[string]",
+    "tid": "[string]",
     "time_consum_end": "[int]",
-    "users": "[string]" 
-  },
-  "..." 
-],
-"step2_table": [
-   "check_item": "[string]",
-  "check_point": "[string]",
-  "ck": "[string]",
-  "end_time": "[string]",
-  "score": "[string]",
-  "start_time": "[string]",
-  "time_consum_end": "[int]",
-  "users": "[string]" 
-},
-"..." 
-],
-"summary": "[string]",
-"tid": "[string]",
-"time_consum_end": "[int]",
-"time_consum_end_1": "[int]",
-"txt_end": "[string]",
-"txt_end_1": "[string]",
-"txt_start": "[string]",
-"upload_img": [
-   "[string]",
-  "..." 
-],
-"users_select": "[string]" 
-},
-"Method": "CreateToDoTicketTicket",
-"SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+    "time_consum_end_1": "[int]",
+    "txt_end": "[string]",
+    "txt_end_1": "[string]",
+    "txt_start": "[string]",
+    "upload_img": [
+       "[string]",
+      "..." 
+    ],
+    "users_select": "[string]" ,
+    "Method": "CreateToDoTicketTicket",
+    "SystemId": "[string]"
 ```
 
 **重要字段说明：**
@@ -2422,14 +2321,9 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
 {
    "Action": "DrillCreateToDoTicket",
   "Data": {
-     "ticket_id": "[string]" 
-  },
-  "Method": "GetToDoTicketTicketInfo",
-  "SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+     "ticket_id": "[string]" ,
+    "Method": "GetToDoTicketTicketInfo",
+    "SystemId": "[string]"
 ```
 
 **真实请求示例：**
@@ -2497,16 +2391,13 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
     "time_consum_end_1": "",
     "users_count": "",
     "working_hours_check": "",
-    "pdf_url": "PDF文档URL"
-  },
-  "msg": "",
-  "status": 0
-}
+    "pdf_url": "PDF文档URL" ,
+    "msg": "",
+    "status": 0
+  }
 ```
 
 ## 演练-演练实施工单信息分页查询
-
-**接口字段说明：**
 
 **真实请求示例：**
 
@@ -2577,19 +2468,15 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
       "TicketCheckTime": {
         "gte": "2025-01-01 00:00:00",
         "lt": "2026-01-01 00:00:00"
-      } 
-    },
-    "Sorts": [
-       "Column": "TicketId",
-      "SortType": "desc"
-    }
-  ],
-  "Limit": {
-    "Size": 10,
-    "Start": 0 
-  }
-}
-}
+      } ,
+      "Sorts": [
+         "Column": "TicketId",
+        "SortType": "desc"
+      }
+    ],
+    "Limit": {
+      "Size": 10,
+      "Start": 0
 ```
 
 **成功返回示例：**
@@ -2659,8 +2546,6 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
 
 ## 演练-演练结果步骤信息查询
 
-**接口字段说明：**
-
 **真实请求示例：**
 
 ```json
@@ -2682,22 +2567,17 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
       "StepName": "",
       "TicketId": "",
       "TimeConsumEnd": "",
-      "Users": "" 
-    },
-    "SearchCondition": {
-       "TicketId": [
-        "20230913001231",
-        ...
-      ] 
-    },
-    "Sorts": [
-    ],
-    "Limit": {
-       "Size": 20,
-      "Start": 0 
-    } 
-  }
-}
+      "Users": "" ,
+      "SearchCondition": {
+         "TicketId": [
+          "20230913001231",
+          ...
+        ] ,
+        "Sorts": [
+        ],
+        "Limit": {
+           "Size": 20,
+          "Start": 0
 ```
 
 **成功返回示例：**
@@ -2755,11 +2635,7 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
     ] 
   },
   "Method": "GetToDoTicketAttachments",
-  "SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+  "SystemId": "[string]"
 ```
 
 **真实请求示例：**
@@ -2815,14 +2691,9 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
 {
    "Action": "DrillCreateToDoTicket",
   "Data": {
-     "ticket_id": "[string]" 
-  },
-  "Method": "GetToDoTicketPdfUrl",
-  "SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+     "ticket_id": "[string]" ,
+    "Method": "GetToDoTicketPdfUrl",
+    "SystemId": "[string]"
 ```
 
 **真实请求示例：**
@@ -2855,11 +2726,9 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
       "system_name": "proxy"
     },
     "Details": "",
-    "Return": 0
-  },
-  "msg": "",
-  "status": 0
-}
+    "Return": 0 ,
+    "msg": "",
+    "status": 0
 ```
 
 ## 机架开关电-派单POST
@@ -2883,31 +2752,24 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
       "rackCode": "[string]",
       "rackId": "[string]",
       "rackSpCode": "[string]",
-      "sn": "[string]" 
-    },
-    "..." 
-  ],
-  "dispatchTime": "[string]",
-  "expectTime": "[string]",
-  "instanceId": "[string]",
-  "projectType": "[string]",
-  "rackList": [
-     "idcUnitId": "[string]",
-    "idcUnitName": "[string]",
-    "rackCode": "[string]",
-    "rackId": "[string]",
-    "rackSpCode": "[string]" 
-  },
-  "..." 
-],
-"taskId": "[string]" 
-},
-"Method": "CreateRackPowerTicket",
-"SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+      "sn": "[string]" ,
+      "..." 
+    ],
+    "dispatchTime": "[string]",
+    "expectTime": "[string]",
+    "instanceId": "[string]",
+    "projectType": "[string]",
+    "rackList": [
+       "idcUnitId": "[string]",
+      "idcUnitName": "[string]",
+      "rackCode": "[string]",
+      "rackId": "[string]",
+      "rackSpCode": "[string]" ,
+      "..." 
+    ],
+    "taskId": "[string]" ,
+    "Method": "CreateRackPowerTicket",
+    "SystemId": "[string]"
 ```
 
 **成功返回示例：**
@@ -2929,14 +2791,9 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
    "Action": "RackPowerTicket",
   "Data": {
      "instanceId": "[string]",
-    "taskId": "[string]" 
-  },
-  "Method": "GetRackPowerTicket",
-  "SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+    "taskId": "[string]" ,
+    "Method": "GetRackPowerTicket",
+    "SystemId": "[string]"
 ```
 
 **成功返回示例：**
@@ -3003,25 +2860,18 @@ tid：这是添加演练计划接口返回的计划ID（data.calendars.id）,也
            "assetId": "[string]",
           "pn": "[string]",
           "rackId": "[string]",
-          "sn": "[string]" 
-        },
+          "sn": "[string]" ,
+          "..." 
+        ],
+        "rackId": "[string]" ,
         "..." 
       ],
-      "rackId": "[string]" 
-    },
-    "..." 
-  ],
-  "taskId": "[string]" 
-},
-"..." 
-] 
-},
-"Method": "CreateRackPowerTicketList",
-"SystemId": "[string]" 
-]) (要求数据类型[
-  int
-]) 调用方系统标识
-}
+      "taskId": "[string]" ,
+      "..." 
+    ] 
+  },
+  "Method": "CreateRackPowerTicketList",
+  "SystemId": "[string]"
 ```
 
 **成功返回示例：**
@@ -3744,18 +3594,16 @@ CREATE TABLE `requirement_records` (
 
 ```json
 {
-  "Action": "HumanRecruit",
+   "Action": "HumanRecruit",
   "Method": "InterviewTimeFeedback",
   "SystemId": "2",
   "data": {
-    "duration": 2,
+     "duration": 2,
     "user_name": "v_zixxyang",
     "ticket_id": "20250930042402",
     "interview_start_time": "202511150000",
     "name": "王五",
     "requirement_ticket": "20250930042269"
-  }
-}
 ```
 
 **返回示例：**
@@ -3790,11 +3638,11 @@ CREATE TABLE `requirement_records` (
 
 ```json
 {
-  "Action": "HumanRecruit",
+   "Action": "HumanRecruit",
   "Method": "OnboardingStatusFeedback",
   "SystemId": "2",
   "data": {
-    "billing_position": "测试",
+     "billing_position": "测试",
     "expected_onboarding_time": "20251023093000",
     "is_real_onboarding": "未入职",
     "name": "老六",
@@ -3803,8 +3651,6 @@ CREATE TABLE `requirement_records` (
     "requirement_ticket": "20250930042298",
     "ticket_id": "1234567890",
     "user_name": "v_zixxyang"
-  }
-}
 ```
 
 **返回示例：**
@@ -4249,8 +4095,6 @@ CREATE TABLE `change_child` (
 ```
 
 ## 查询事件单工单的关联设备
-
-**参数说明：**
 
 | 参数名 | 类型 | 是否必填 | 描述 |
 | --- | --- | --- | --- |
