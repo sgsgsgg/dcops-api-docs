@@ -18,51 +18,55 @@
   "tags": [
     {
       "name": "巡检管理",
-      "description": "巡检工单查询与管理"
+      "description": "巡检业务（BussType=巡检）：巡检主表查询"
     },
     {
       "name": "维护管理",
-      "description": "维护工单查询与管理"
+      "description": "维护业务（BussType=维护）：维护主表/子表、维护租赁主/子单表查询"
     },
     {
       "name": "维修管理",
-      "description": "维修工单查询与管理"
-    },
-    {
-      "name": "演练管理",
-      "description": "演练计划与工单管理"
+      "description": "维修业务（BussType=维修）：维修主表查询、维修事件处理流程节点日志查询等"
     },
     {
       "name": "变更管理",
-      "description": "变更工单查询与管理"
-    },
-    {
-      "name": "机架开关电",
-      "description": "机架电源操作接口"
-    },
-    {
-      "name": "安全管理",
-      "description": "人员和物资进出管理"
-    },
-    {
-      "name": "服务改善",
-      "description": "服务质量改善反馈"
-    },
-    {
-      "name": "人员管理",
-      "description": "人员招聘与培训管理"
-    },
-    {
-      "name": "设备管理",
-      "description": "设备信息查询"
+      "description": "变更业务（BussType=变更）：变更母单、变更子单查询"
     },
     {
       "name": "事件管理",
-      "description": "事件工单与告警管理"
+      "description": "事件业务（BussType=事件）：事件工单、告警设备信息查询"
+    },
+    {
+      "name": "演练管理",
+      "description": "演练业务：演练方案、方案步骤、标准日历、演练工单、步骤列表查询，以及演练计划/工单创建和附件下载"
+    },
+    {
+      "name": "设备管理",
+      "description": "设备业务（BussType=DeviceDb）：设备基础信息查询"
+    },
+    {
+      "name": "机架开关电",
+      "description": "机架开关电工单创建与查询"
+    },
+    {
+      "name": "安全管理",
+      "description": "人员进出、物资进出工单创建与查询"
+    },
+    {
+      "name": "服务改善",
+      "description": "整改措施反馈、整改落地反馈"
+    },
+    {
+      "name": "人员招聘",
+      "description": "人员招聘业务（BussType=人员招聘）：招聘需求、招聘信息查询，简历上传、面试反馈、入职反馈"
+    },
+    {
+      "name": "培训管理",
+      "description": "培训业务（BussType=培训）：员工能力评估、服务认证考核、运维培训记录查询"
     },
     {
       "name": "通用查询",
-      "description": "通用数据查询接口"
+      "description": "无 BussType 限定的通用数据查询：在库服务人员、租赁机房通用服务工单"
     }
   ],
   "paths": {
@@ -1676,7 +1680,7 @@
         "tags": [
           "维修管理"
         ],
-        "summary": "查询维修工单",
+        "summary": "查询维修主表",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 维修工单 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `maintenance_work_order` (\n  `id` varchar(100) DEFAULT '' COMMENT '自定义单号',\n  `maintenance_id` varchar(100) NOT NULL COMMENT '维修dcops单号',\n  `event_id` varchar(100) DEFAULT '无' COMMENT '事件dcops单号',\n  `maintenance_status` varchar(100) DEFAULT '' COMMENT '维修状态',\n  `park_name` varchar(100) DEFAULT '' COMMENT '园区名称',\n  `mozu_name` varchar(100) DEFAULT '' COMMENT '模组名称',\n  `maintenance_level` varchar(100) DEFAULT '' COMMENT '维修等级',\n  `maintenance_source` varchar(100) DEFAULT '' COMMENT '维修单来源',\n  `created_time` varchar(100) DEFAULT '' COMMENT '创建时间',\n  `created_by` varchar(100) DEFAULT '' COMMENT '创建人',\n  `maintenance_title` varchar(1000) DEFAULT '' COMMENT '维修标题',\n  `maintenance_program` varchar(100) DEFAULT '' COMMENT '维修方案',\n  `solution_created_time` varchar(100) DEFAULT '' COMMENT '方案制定时间',\n  `maintenance_engineer` varchar(100) DEFAULT '' COMMENT '维修工程师',\n  `facilities_professional` varchar(100) DEFAULT '' COMMENT '所属专业',\n  `maintenance_end_time` varchar(100) DEFAULT '' COMMENT '维修结单时间',\n  `another_event_order_number` varchar(100) DEFAULT '无' COMMENT '自定义的事件单号',\n  `maintenance_number` varchar(1000) DEFAULT '无' COMMENT '维修流程id',\n  `repair_description` varchar(1000) DEFAULT NULL COMMENT '维修描述',\n  `po_instance_id` varchar(1000) DEFAULT NULL COMMENT '关联po单流程id',\n  `po_number` varchar(100) DEFAULT NULL COMMENT 'po单号',\n  `maintenance_subtitle` varchar(1000) DEFAULT NULL COMMENT '维修副标题',\n  `change_code` varchar(100) DEFAULT NULL COMMENT '关联变更单号',\n  `diagnosis_scene_name` varchar(1000) DEFAULT NULL COMMENT '维修诊断场景',\n  `diagnosis_device_number` varchar(1000) DEFAULT NULL COMMENT '维修诊断设备编号',\n  `qc_number` varchar(255) DEFAULT '无' COMMENT 'qc单号',\n  `is_qc` varchar(255) DEFAULT '否' COMMENT '是否需要qc',\n  `is_overtime` varchar(255) DEFAULT '否' COMMENT '是否qc超时',\n  `proof_status` varchar(255) DEFAULT '无举证' COMMENT '举证状态',\n  `recheck_status` varchar(255) DEFAULT '未检查' COMMENT '复检状态',\n  PRIMARY KEY (`maintenance_id`),\n  KEY `事件单号` (`event_id`) USING BTREE,\n  KEY `模组名称` (`mozu_name`) USING BTREE,\n  KEY `自定义id` (`id`) USING BTREE,\n  KEY `idx_maintenance_program` (`maintenance_program`)\n) ENGINE = InnoDB DEFAULT CHARSET = utf8\n```",
         "operationId": "query_maintenance_work_order_read",
         "requestBody": {
@@ -2019,7 +2023,7 @@
         "tags": [
           "维修管理"
         ],
-        "summary": "查询维修单",
+        "summary": "查询【新】维修主表",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 维修单 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `repair_orders` (\n  `id` int(9) NOT NULL AUTO_INCREMENT,\n  `campus_name` varchar(64) NOT NULL COMMENT '园区',\n  `mozu_name` varchar(64) NOT NULL COMMENT '模组',\n  `upstream_business` varchar(64) NOT NULL COMMENT '维修来源',\n  `upstream_id` varchar(64) DEFAULT NULL COMMENT '上游单号',\n  `ticket_id` varchar(64) NOT NULL COMMENT '维修单号',\n  `facilities_professional` varchar(32) DEFAULT NULL COMMENT '专业',\n  `problem_desc` varchar(2000) DEFAULT NULL COMMENT '故障现象描述',\n  `creator` varchar(256) DEFAULT NULL COMMENT '创建人',\n  `created_time` varchar(64) NOT NULL COMMENT '创建时间',\n  `repair_level` varchar(32) NOT NULL COMMENT '维修等级',\n  `repair_business` varchar(32) DEFAULT NULL COMMENT '维修厂商',\n  `repair_engineer` varchar(64) DEFAULT NULL COMMENT '维修工程师',\n  `repair_status` varchar(64) DEFAULT NULL COMMENT '工单状态',\n  `failure_reason` varchar(1000) DEFAULT NULL COMMENT '故障原因/维修原因',\n  `end_time` varchar(64) DEFAULT NULL COMMENT '结单时间',\n  `po_id` varchar(64) DEFAULT NULL COMMENT '关联po单号',\n  `change_id` varchar(64) DEFAULT NULL COMMENT '关联变更单号',\n  `ticket_title` varchar(2000) DEFAULT NULL COMMENT '工单标题',\n  `is_append` varchar(9) DEFAULT '否' COMMENT '是否补单',\n  `append_reason` varchar(2000) DEFAULT NULL COMMENT '补单原因',\n  `repair_score` varchar(32) DEFAULT NULL COMMENT '维修评分',\n  `is_deal_timely` varchar(9) DEFAULT NULL COMMENT '是否处理及时',\n  `overtime_type` varchar(500) DEFAULT NULL COMMENT '超时举证分类',\n  `overtime_proof_desc` varchar(2000) DEFAULT NULL COMMENT '举证描述',\n  `qc_result` char(9) DEFAULT NULL COMMENT '合格/不合格',\n  `is_response_timely` char(9) DEFAULT NULL COMMENT '是否响应及时',\n  `is_one_time_repair_passed` char(9) DEFAULT NULL COMMENT '是否一次性维修通过',\n  PRIMARY KEY (`id`),\n  KEY `idx_ticket_id` (`ticket_id`) \n) ENGINE=InnoDB AUTO_INCREMENT=49384 DEFAULT CHARSET=utf8 COMMENT='维修单信息表'\n```",
         "operationId": "query_repair_orders",
         "requestBody": {
@@ -2344,7 +2348,7 @@
         "tags": [
           "维修管理"
         ],
-        "summary": "查询维修操作日志",
+        "summary": "查询【新】维修事件处理流程节点操作日志（按维修 ID）",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 维修操作日志 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `repair_orders_ope_logs` (\n  `id` int(9) NOT NULL AUTO_INCREMENT,\n  `ticket_id` varchar(32) NOT NULL COMMENT '维修单号',\n  `node_name` varchar(128) NOT NULL COMMENT '流程中节点名称',\n  `deal_user` varchar(64) DEFAULT NULL COMMENT '处理人',\n  `start_time` varchar(32) DEFAULT NULL COMMENT '节点开始时间',\n  `end_time` varchar(32) DEFAULT NULL COMMENT '节点结束时间',\n  `deal_detail` longtext COMMENT '节点处理详情',\n  `deal_user_role` varchar(64) DEFAULT NULL COMMENT '处理人角色',\n  `task_id` varchar(32) DEFAULT NULL COMMENT '节点任务id',\n  PRIMARY KEY (`id`)\n) ENGINE = InnoDB AUTO_INCREMENT = 4328 DEFAULT CHARSET = utf8 COMMENT = '维修工单操作日志'\n```",
         "operationId": "query_repair_orders_ope_logs",
         "requestBody": {
@@ -2496,9 +2500,9 @@
     "/ifob-fre#query_service_person": {
       "post": {
         "tags": [
-          "人员管理"
+          "通用查询"
         ],
-        "summary": "查询服务人员",
+        "summary": "查询在库服务人员信息",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 服务人员 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `data_center_operator_info` (\n  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT '人员id自增',\n  `user_real_name` varchar(255) DEFAULT NULL COMMENT '人员姓名',\n  `gender` char(9) DEFAULT NULL COMMENT '性别',\n  `photo` varchar(255) DEFAULT NULL COMMENT '照片cos地址',\n  `cellphone_number` varchar(255) DEFAULT NULL COMMENT '手机号码',\n  `user_account` varchar(255) DEFAULT NULL COMMENT '人员科技账号',\n  `personnel_source` varchar(255) DEFAULT NULL COMMENT '人员来源：运营商/服务商',\n  `business_type` varchar(255) DEFAULT NULL COMMENT '人员负责业务类型：巡检/变更/维护',\n  `person_position` varchar(255) DEFAULT NULL COMMENT '人员岗位',\n  `campus_name` varchar(255) DEFAULT NULL COMMENT '所属园区',\n  `mozu_name` varchar(2000) DEFAULT NULL COMMENT '所属模组',\n  `service_provider` varchar(255) DEFAULT NULL COMMENT '人员所属公司',\n  `person_status` varchar(255) DEFAULT NULL COMMENT '在职/离职',\n  `city` varchar(255) DEFAULT NULL COMMENT '人员工作城市',\n  PRIMARY KEY (`id`)\n) ENGINE = InnoDB AUTO_INCREMENT = 116 DEFAULT CHARSET = utf8\n```",
         "operationId": "query_service_person",
         "requestBody": {
@@ -2696,7 +2700,7 @@
         "tags": [
           "通用查询"
         ],
-        "summary": "查询通用服务工单",
+        "summary": "查询租赁机房通用服务工单",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 通用服务工单 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `service_common_ticket` (\n  `id` int(9) NOT NULL AUTO_INCREMENT,\n  `campus_name` varchar(64) DEFAULT NULL COMMENT '园区',\n  `mozu_name` varchar(64) DEFAULT NULL COMMENT '模组',\n  `creator` varchar(32) DEFAULT NULL COMMENT '创建人',\n  `workorder_type` varchar(32) DEFAULT NULL COMMENT '工单服务类型',\n  `task_type` varchar(32) DEFAULT NULL COMMENT '服务子项内容',\n  `dcops_id` varchar(32) DEFAULT NULL COMMENT '服务工单对应的dcops单号',\n  `upstream_id` varchar(32) DEFAULT NULL COMMENT '上游单号',\n  `related_business_id` varchar(32) DEFAULT NULL COMMENT '关联业务工单号',\n  `create_time` varchar(32) DEFAULT NULL COMMENT '服务工单创建时间',\n  `executor` varchar(32) DEFAULT NULL COMMENT '现场执行工单人员oa信息',\n  `execute_start_time` varchar(32) DEFAULT NULL COMMENT '执行开始时间',\n  `execute_end_time` varchar(32) DEFAULT NULL COMMENT '执行结束时间',\n  `fmc_auditor` varchar(32) DEFAULT NULL COMMENT 'FMC审核人',\n  `fmc_audit_result` varchar(9) DEFAULT NULL COMMENT 'FMC审核结果',\n  `fmc_audit_remark` varchar(2000) DEFAULT NULL COMMENT 'FMC审核备注',\n  `idc_manager` varchar(32) DEFAULT NULL COMMENT '数经审核人',\n  `idc_manager_audit_result` varchar(32) DEFAULT NULL COMMENT '数经审核结果',\n  `idc_manager_audit_remark` varchar(2000) DEFAULT NULL COMMENT '数经审核备注',\n  `workorder_state` varchar(32) DEFAULT NULL COMMENT '工单状态',\n  `attachment` varchar(1000) DEFAULT NULL COMMENT '附件',\n  `dispatch_dimension` varchar(32) DEFAULT NULL COMMENT '派单维度/园区/模组/一级机房',\n  `bizArea_name` varchar(64) DEFAULT NULL COMMENT '一级机房名',\n  `service_desc` varchar(2000) DEFAULT NULL COMMENT '服务说明',\n  `deal_desc` varchar(2000) DEFAULT NULL COMMENT '处理说明',\n  `plan_start` varchar(32) DEFAULT NULL COMMENT '计划开始时间',\n  `plan_end` varchar(32) DEFAULT NULL COMMENT '计划结束时间',\n  `is_billing` varchar(9) DEFAULT NULL COMMENT '是否计费',\n  `service_provider` varchar(32) DEFAULT NULL COMMENT '服务提供商',\n  PRIMARY KEY (`id`)\n) ENGINE = InnoDB AUTO_INCREMENT = 47 DEFAULT CHARSET = utf8 COMMENT = '通用服务工单历史记录'\n```",
         "operationId": "query_service_common_ticket",
         "requestBody": {
@@ -3027,9 +3031,9 @@
     "/ifob-fre#query_simple_main_ticket": {
       "post": {
         "tags": [
-          "通用查询"
+          "维护管理"
         ],
-        "summary": "查询简单主工单",
+        "summary": "查询维护租赁主单表",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 简单主工单 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `simple_main_ticket` (\n  `ticket_id` varchar(15) NOT NULL,\n  `instance_id` varchar(40) DEFAULT NULL,\n  `create_time` varchar(20) DEFAULT NULL COMMENT '建单时间',\n  `end_time` varchar(20) DEFAULT NULL COMMENT '结束时间',\n  `ticket_status` varchar(9) DEFAULT NULL COMMENT '工单状态',\n  `region_name` varchar(9) DEFAULT NULL COMMENT '区域',\n  `campus_name` varchar(20) DEFAULT NULL COMMENT '园区',\n  `mozu_name` varchar(50) DEFAULT NULL COMMENT '模组名称',\n  `devicetypes_name` varchar(100) DEFAULT NULL COMMENT '设备类型',\n  `maintenance_cycle` varchar(9) DEFAULT NULL COMMENT '维护周期',\n  `template_selection` varchar(9) DEFAULT NULL COMMENT '模板选择',\n  `ticket_mode` varchar(9) DEFAULT NULL COMMENT '派单模式',\n  `to_change` varchar(9) DEFAULT NULL COMMENT '是否有变更',\n  `change_id` varchar(1000) DEFAULT NULL COMMENT '变更单号',\n  `plan_start_date` varchar(10) DEFAULT NULL COMMENT '计划开始日期',\n  `plan_end_date` varchar(10) DEFAULT NULL COMMENT '计划结束日期',\n  `audit_results` varchar(6) DEFAULT NULL COMMENT '审核结果',\n  `once_pass` varchar(9) DEFAULT NULL COMMENT '一次通过',\n  `fmc_refusal` varchar(200) DEFAULT NULL COMMENT 'fmc驳回意见',\n  `re_type` varchar(9) DEFAULT NULL COMMENT 'fmc驳回类别',\n  `fmc_user` varchar(20) DEFAULT NULL COMMENT 'fmc审核人',\n  `maintenance_plan` varchar(200) DEFAULT NULL COMMENT '维护模板',\n  `status_light` varchar(9) DEFAULT NULL COMMENT '状态灯',\n  `eg_opinion` varchar(1000) DEFAULT NULL COMMENT '工程师审核意见',\n  `reason` varchar(1000) DEFAULT NULL COMMENT '延期取消原因',\n  `original_ticket_id` varchar(20) DEFAULT NULL COMMENT '原工单号',\n  `eg_pass` varchar(20) DEFAULT '是' COMMENT '工程师通过',\n  PRIMARY KEY (`ticket_id`) \n) ENGINE=InnoDB DEFAULT CHARSET=utf8\n```",
         "operationId": "query_simple_main_ticket",
         "requestBody": {
@@ -3343,9 +3347,9 @@
     "/ifob-fre#query_simple_sub_ticket": {
       "post": {
         "tags": [
-          "通用查询"
+          "维护管理"
         ],
-        "summary": "查询简单子工单",
+        "summary": "查询维护租赁子单表",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 简单子工单 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `simple_sub_ticket` (\n  `ticket_id` varchar(15) NOT NULL,\n  `instance_id` varchar(40) DEFAULT NULL,\n  `task_id` varchar(40) DEFAULT NULL COMMENT '任务id',\n  `main_ticket_id` varchar(15) DEFAULT NULL COMMENT '主单id',\n  `title` varchar(100) DEFAULT NULL COMMENT '标题',\n  `device_number` text COMMENT '设备编号',\n  `create_time` varchar(20) DEFAULT NULL COMMENT '建单时间',\n  `end_time` varchar(20) DEFAULT NULL COMMENT '结束时间',\n  `ticket_status` varchar(9) DEFAULT NULL COMMENT '工单状态',\n  `campus_name` varchar(20) DEFAULT NULL COMMENT '园区名称',\n  `mozu_name` varchar(50) DEFAULT NULL COMMENT '模组名称',\n  `devicetypes_name` varchar(100) DEFAULT NULL COMMENT '设备类型',\n  `maintenance_cycle` varchar(9) DEFAULT NULL COMMENT '维护周期',\n  `end_file` json DEFAULT NULL COMMENT '维护文档',\n  `status_light` varchar(2) DEFAULT NULL COMMENT '状态灯',\n  `confirm_results` varchar(4) DEFAULT '正常' COMMENT '维护结果',\n  `confirm_summary` varchar(1000) DEFAULT NULL COMMENT '维护总结',\n  `ticket_type` varchar(9) DEFAULT NULL COMMENT '工单类型',\n  `p_ticket_id` varchar(1000) DEFAULT NULL COMMENT '问题跟进单单号',\n  `p_ins_id` varchar(1000) DEFAULT NULL COMMENT '问题跟进单流程单号',\n  `abnormal_check_count` varchar(9) DEFAULT NULL COMMENT '异常灯数量',\n  `deal_user` varchar(500) DEFAULT NULL COMMENT '处理人',\n  `face_photo` varchar(500) DEFAULT NULL COMMENT '人脸识别照片',\n  `face_user` varchar(500) DEFAULT NULL COMMENT '人脸识别对象',\n  `face_detect_result` varchar(500) DEFAULT NULL COMMENT '识别结果',\n  `face_detail` varchar(500) DEFAULT NULL COMMENT '识别详情',\n  `upload_face_photo_time` varchar(500) DEFAULT NULL COMMENT '上传人脸识别照片时间',\n  `upload_photo_time` varchar(500) DEFAULT NULL COMMENT '上传照片时间',\n  `audit_results` varchar(200) DEFAULT NULL COMMENT '审核结果',\n  `audit_reason` varchar(200) DEFAULT NULL COMMENT '审核原因',\n  `device_name` varchar(200) DEFAULT NULL COMMENT '设备名称',\n  `reason` varchar(1000) DEFAULT NULL COMMENT '延期取消原因',\n  PRIMARY KEY (`ticket_id`) \n) ENGINE=InnoDB DEFAULT CHARSET=utf8\n```",
         "operationId": "query_simple_sub_ticket",
         "requestBody": {
@@ -3704,9 +3708,9 @@
     "/ifob-fre#query_emp_competency_assessment_1": {
       "post": {
         "tags": [
-          "人员管理"
+          "培训管理"
         ],
-        "summary": "查询员工能力评估",
+        "summary": "查询员工能力评估考核",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 员工能力评估 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `emp_competency_assessment_1` (\n  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'id主键',\n  `campus` longtext NOT NULL COMMENT '园区',\n  `mozu` longtext NOT NULL COMMENT '模组',\n  `keji_account` varchar(255) NOT NULL COMMENT '账号',\n  `keji_user_name` varchar(255) NOT NULL COMMENT '姓名',\n  `object` varchar(255) NOT NULL COMMENT '岗位',\n  `exam_start_date` varchar(100) NOT NULL COMMENT '考试开始时间',\n  `exam_end_date` varchar(100) NOT NULL COMMENT '考试结束时间',\n  `ability_scores` json NOT NULL COMMENT '各项能力分数',\n  `total_score` float NOT NULL COMMENT '总分',\n  `exam_line` longtext NOT NULL COMMENT '考试链接',\n  `student_status` varchar(9) NOT NULL COMMENT '学员状态',\n  `exam_name` varchar(255) NOT NULL COMMENT '培训名称',\n  `fac_pm` longtext NOT NULL COMMENT '项目经理',\n  `t_idc_asst_manager` longtext NOT NULL COMMENT '数经',\n  PRIMARY KEY (`id`) \n) ENGINE=InnoDB AUTO_INCREMENT=2445 DEFAULT CHARSET=utf8 COMMENT='人员能力评估考核数据第二版'\n```",
         "operationId": "query_emp_competency_assessment_1",
         "requestBody": {
@@ -4850,9 +4854,9 @@
     "/ifob-fre#query_service_training_results_record": {
       "post": {
         "tags": [
-          "人员管理"
+          "培训管理"
         ],
-        "summary": "查询培训结果记录",
+        "summary": "查询服务认证考核",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 培训结果记录 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `service_training_results_record` (\n  `id` int(10) NOT NULL AUTO_INCREMENT,\n  `scope_of_training` varchar(255) DEFAULT NULL COMMENT '培训范围',\n  `training_category` varchar(100) DEFAULT NULL COMMENT '培训分类',\n  `training_name` varchar(255) DEFAULT NULL COMMENT '培训名称',\n  `training_date` varchar(255) DEFAULT NULL COMMENT '培训日期',\n  `trainee` varchar(255) DEFAULT NULL COMMENT '培训人员',\n  `chinese_name` varchar(255) DEFAULT NULL COMMENT '中文名',\n  `service_company` varchar(255) DEFAULT NULL COMMENT '服务商公司',\n  `campus_name` varchar(255) DEFAULT NULL COMMENT '园区',\n  `mozu_name` varchar(255) DEFAULT NULL COMMENT '模组',\n  `job_title` varchar(255) DEFAULT NULL COMMENT '岗位',\n  `learning_status` varchar(255) DEFAULT NULL COMMENT '学习状态',\n  `learning_time` varchar(255) DEFAULT NULL COMMENT '学习时长',\n  `standard_time` varchar(255) DEFAULT NULL COMMENT '标准培训时长',\n  `participate_progress` varchar(255) DEFAULT NULL COMMENT '课程参与时长百分比',\n  `need_to_check` varchar(255) DEFAULT NULL COMMENT '是否有考核',\n  `exam_required` varchar(255) DEFAULT NULL COMMENT '是否为必考人员',\n  `assessment_date` varchar(255) DEFAULT NULL COMMENT '考核日期',\n  `check_status` varchar(255) DEFAULT NULL COMMENT '考核状态',\n  `assessment_score` varchar(255) DEFAULT NULL COMMENT '考核分数',\n  `update_time` varchar(255) DEFAULT NULL COMMENT '成绩录入时间',\n  `exam_pass` varchar(255) DEFAULT NULL COMMENT '考核是否通过',\n  `remake_score` varchar(255) DEFAULT NULL COMMENT '补考分数',\n  `remake_date` varchar(255) DEFAULT NULL COMMENT '补考日期',\n  `pass_certification` varchar(255) DEFAULT '未审批' COMMENT '是否通过认证',\n  `certification_date` varchar(255) DEFAULT NULL COMMENT '认证时间',\n  `assessment_ticket_id` varchar(20) DEFAULT NULL COMMENT '培训实施工单',\n  PRIMARY KEY (`id`) USING BTREE \n) ENGINE=InnoDB AUTO_INCREMENT=8302 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC\n```",
         "operationId": "query_service_training_results_record",
         "requestBody": {
@@ -5166,9 +5170,9 @@
     "/ifob-fre#query_training_results_record": {
       "post": {
         "tags": [
-          "人员管理"
+          "培训管理"
         ],
-        "summary": "查询培训记录",
+        "summary": "查询运维培训记录",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 培训记录 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `training_results_record` (\n  `id` int(10) NOT NULL AUTO_INCREMENT,\n  `scope_of_training` varchar(255) DEFAULT NULL COMMENT '培训范围',\n  `training_name` varchar(255) DEFAULT NULL COMMENT '培训名称',\n  `training_date` varchar(255) DEFAULT NULL COMMENT '培训日期',\n  `trainee` varchar(255) DEFAULT NULL COMMENT '培训人员',\n  `chinese_name` varchar(255) DEFAULT NULL COMMENT '中文名',\n  `campus_name` varchar(255) DEFAULT NULL COMMENT '园区',\n  `mozu_name` varchar(2000) DEFAULT NULL COMMENT '模组',\n  `job_title` varchar(255) DEFAULT NULL COMMENT '岗位',\n  `learning_status` varchar(255) DEFAULT NULL COMMENT '学习状态',\n  `learning_time` varchar(255) DEFAULT NULL COMMENT '学习时长',\n  `standard_time` varchar(255) DEFAULT NULL COMMENT '标准培训时长',\n  `participate_progress` varchar(255) DEFAULT NULL COMMENT '课程参与时长百分比',\n  `need_to_check` varchar(255) DEFAULT NULL COMMENT '是否有考核',\n  `exam_required` varchar(255) DEFAULT NULL COMMENT '是否为必考人员',\n  `assessment_date` varchar(255) DEFAULT NULL COMMENT '考核日期',\n  `check_status` varchar(255) DEFAULT NULL COMMENT '考核状态',\n  `assessment_score` varchar(255) DEFAULT NULL COMMENT '考核分数',\n  `update_time` varchar(255) DEFAULT NULL COMMENT '成绩录入时间',\n  `exam_pass` varchar(255) DEFAULT NULL COMMENT '考核是否通过',\n  `remake_score` varchar(255) DEFAULT NULL COMMENT '补考分数',\n  `remake_date` varchar(255) DEFAULT NULL COMMENT '补考日期',\n  `training_category` varchar(255) DEFAULT NULL COMMENT '培训分类',\n  `assessment_ticket_id` varchar(20) DEFAULT NULL COMMENT '工单实施单号',\n  PRIMARY KEY (`id`) USING BTREE \n) ENGINE=InnoDB AUTO_INCREMENT=50571 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC\n```",
         "operationId": "query_training_results_record",
         "requestBody": {
@@ -6400,7 +6404,7 @@
     "/ifob-fre#upload_resume": {
       "post": {
         "tags": [
-          "人员管理"
+          "人员招聘"
         ],
         "summary": "上传简历",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n上传应聘者简历",
@@ -6491,7 +6495,7 @@
     "/ifob-fre#interview_time_feedback": {
       "post": {
         "tags": [
-          "人员管理"
+          "人员招聘"
         ],
         "summary": "面试时间反馈",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n反馈面试时间安排",
@@ -6572,7 +6576,7 @@
     "/ifob-fre#onboarding_status_feedback": {
       "post": {
         "tags": [
-          "人员管理"
+          "人员招聘"
         ],
         "summary": "入职状态反馈",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n反馈应聘者入职状态",
@@ -6991,7 +6995,7 @@
         "tags": [
           "演练管理"
         ],
-        "summary": "查询演练标准日历",
+        "summary": "查询演练标准日历/计划",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 QueryData 接口查询 演练标准日历 数据，支持条件筛选、排序和分页",
         "operationId": "query_drill_standard_calendar",
         "requestBody": {
@@ -7242,7 +7246,7 @@
         "tags": [
           "演练管理"
         ],
-        "summary": "查询演练工单",
+        "summary": "查询演练实施工单信息",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 QueryData 接口查询 演练工单 数据，支持条件筛选、排序和分页",
         "operationId": "query_drill_tode_ticket_info",
         "requestBody": {
@@ -7754,7 +7758,7 @@
         "tags": [
           "演练管理"
         ],
-        "summary": "查询演练步骤",
+        "summary": "查询演练结果步骤信息",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 QueryData 接口查询 演练步骤 数据，支持条件筛选、排序和分页",
         "operationId": "query_drill_step_list",
         "requestBody": {
@@ -7924,7 +7928,7 @@
         "tags": [
           "设备管理"
         ],
-        "summary": "查询设备信息",
+        "summary": "查询设备基础信息",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 设备信息 数据，支持条件筛选、排序和分页",
         "operationId": "query_device_simple",
         "requestBody": {
@@ -8608,7 +8612,7 @@
         "tags": [
           "事件管理"
         ],
-        "summary": "查询告警设备信息",
+        "summary": "查询事件告警设备信息",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 告警设备信息 数据，支持条件筛选、排序和分页",
         "operationId": "query_event_alarm_device_info",
         "requestBody": {
@@ -8689,9 +8693,9 @@
     "/ifob-fre#query_event_operation_log": {
       "post": {
         "tags": [
-          "事件管理"
+          "维修管理"
         ],
-        "summary": "查询事件操作日志",
+        "summary": "查询维修事件处理流程节点操作日志（按维修 ID）",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 事件操作日志 数据，支持条件筛选、排序和分页",
         "operationId": "query_event_operation_log",
         "requestBody": {
@@ -8807,9 +8811,9 @@
     "/ifob-fre#query_human_recruit": {
       "post": {
         "tags": [
-          "人员管理"
+          "人员招聘"
         ],
-        "summary": "查询招聘信息",
+        "summary": "查询招聘信息（简历列表）",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 招聘信息 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `requirement_records` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `ticket_id` varchar(25) DEFAULT NULL COMMENT '工单号',\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',\n  `updated_at` varchar(19) DEFAULT NULL COMMENT '更新时间',\n  `group_name` varchar(25) DEFAULT NULL COMMENT '园区/小组',\n  `requirement_ticket` varchar(25) DEFAULT NULL COMMENT '需求单号',\n  `billing_position` varchar(25) DEFAULT NULL COMMENT '面试岗位',\n  `name` varchar(25) DEFAULT NULL COMMENT '姓名',\n  `resume_file` json DEFAULT NULL COMMENT '简历附件',\n  `resume_status` varchar(9) DEFAULT NULL COMMENT '简历筛选状态',\n  `resume_desc` text COMMENT '筛选说明',\n  `is_filtered` tinyint(4) DEFAULT '0' COMMENT '是否已筛选',\n  `is_qualified` varchar(45) DEFAULT NULL COMMENT '结论',\n  `mark` varchar(45) DEFAULT NULL COMMENT '分数',\n  `info` text COMMENT '分数说明',\n  `interview_time` varchar(25) DEFAULT NULL COMMENT '面试时间',\n  `interview_link` text COMMENT '会议链接',\n  `interview_status` varchar(9) DEFAULT NULL COMMENT '面试状态',\n  `interview_score` int(11) DEFAULT '0' COMMENT '面试得分',\n  `interview_desc` text COMMENT '评价说明',\n  `interview_record` json DEFAULT NULL COMMENT '面试记录',\n  `is_interviewed` tinyint(4) DEFAULT '0' COMMENT '是否已面试',\n  `onboarding_status` varchar(255) DEFAULT NULL COMMENT '入职状态',\n  `expected_onboarding_time` varchar(25) DEFAULT NULL COMMENT '预计入职时间',\n  `is_real_onboarding` varchar(25) DEFAULT '' COMMENT '是否实际入职',\n  `real_onboarding_time` varchar(25) DEFAULT NULL COMMENT '实际入职时间',\n  `is_confirmed` tinyint(4) DEFAULT '0' COMMENT '是否已确认',\n  `service_provider` varchar(45) DEFAULT NULL COMMENT '供应商',\n  `is_deleted` tinyint(4) DEFAULT '0' COMMENT '逻辑删除',\n  `reason` varchar(255) DEFAULT NULL COMMENT '申请原因',\n  PRIMARY KEY (`id`) \n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4\n```",
         "operationId": "query_human_recruit",
         "requestBody": {
@@ -9142,7 +9146,7 @@
     "/ifob-fre#query_recruit_requirement": {
       "post": {
         "tags": [
-          "人员管理"
+          "人员招聘"
         ],
         "summary": "查询招聘需求单",
         "description": "> ⚠️ **真实请求 URL**：`{server_base}/ifob-fre`（无任何多余字符）。\n> 文档中的 `#` 锚点仅用于区分 45 个业务场景，HTTP 客户端在发送请求时会**自动丢弃** `#` 及其后内容。\n> 所有业务通过请求 body 中的 `Action` / `SchemaId` / `BussType` 字段进行路由。\n\n通过 ServiceQueryData 接口查询 招聘需求单 数据，支持条件筛选、排序和分页\n\n#### 表结构\n\n```sql\nCREATE TABLE `requirement_info` (\n  `id` int(9) NOT NULL AUTO_INCREMENT,\n  `ticket_id` varchar(25) DEFAULT NULL COMMENT '工单号',\n  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',\n  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',\n  `group_name` varchar(25) DEFAULT NULL COMMENT '园区/小组',\n  `requirement_ticket` varchar(25) NOT NULL COMMENT '需求单号',\n  `requirement_type` varchar(9) DEFAULT NULL COMMENT '需求类型',\n  `requirement_status` varchar(25) DEFAULT NULL COMMENT '需求状态',\n  `billing_position` varchar(25) NOT NULL COMMENT '面试岗位',\n  `need_cnt` int(9) NOT NULL DEFAULT '0' COMMENT '需求数量',\n  `head_cnt` int(9) NOT NULL COMMENT '剩余HC',\n  `expect_time` varchar(25) NOT NULL COMMENT '期望到岗时间',\n  `workplace` varchar(25) NOT NULL COMMENT '工作地点',\n  `demand` varchar(255) DEFAULT NULL COMMENT '需求人',\n  `review_desc` text COMMENT '需求复核说明',\n  `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '逻辑删除',\n  `resume_count` int(9) DEFAULT NULL COMMENT '推送简历数量',\n  `pass_resume_count` int(9) DEFAULT NULL COMMENT '简历筛选数量',\n  `interview_count` int(9) DEFAULT NULL COMMENT '面试人数',\n  `pass_interview_count` int(9) DEFAULT NULL COMMENT '面试通过人数',\n  `real_onboarding_time` varchar(25) DEFAULT NULL COMMENT '实际入职时间',\n  `duration` int(9) DEFAULT NULL COMMENT '招聘时长',\n  `is_pass` text COMMENT '是否合格',\n  `applicant` varchar(25) DEFAULT NULL COMMENT '申请人',\n  `hr_contact` varchar(255) DEFAULT NULL COMMENT 'HR接口人',\n  `sync_time` varchar(25) DEFAULT NULL COMMENT '需求同步时间',\n  `done_time` varchar(25) DEFAULT NULL COMMENT '招聘完成时间',\n  `fmc` varchar(255) DEFAULT NULL COMMENT 'FMC',\n  `pmc` varchar(255) DEFAULT NULL COMMENT 'PMC',\n  `service_provider` varchar(45) DEFAULT NULL COMMENT '供应商',\n  `reason` varchar(255) DEFAULT NULL COMMENT '申请原因',\n  PRIMARY KEY (`id`) USING BTREE,\n  UNIQUE KEY `idx_unique_requirement_info` (`requirement_ticket`,\n  `billing_position`),\n  KEY `ticket_id` (`ticket_id`) USING BTREE \n) ENGINE=InnoDB AUTO_INCREMENT=269 DEFAULT CHARSET=utf8mb4 COMMENT='招聘需求信息'\n```",
