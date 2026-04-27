@@ -3,16 +3,12 @@
   "info": {
     "title": "DCOPS 运维平台 API",
     "version": "1.0.0",
-    "description": "## 🚀 Apifox 使用指南（重要）\n\n导入本文档后请按下述 **3 步**完成鉴权配置，之后所有 45 个接口都会自动带上签名。\n\n### 步骤 1：确认环境\n打开 Apifox → `项目设置 → 环境管理`，应能看到自动生成的：\n- **测试环境** baseUrl = `https://dcops.test.tencent.com/relay/open/ifob/rapi`\n- **正式环境** baseUrl = `https://dcops.idc.tencent.com/relay/open/ifob/rapi`\n\n若未自动生成，请手动添加。环境的\"公共请求头\"里 **Authorization** 的值保持为 `{{authorization}}`（已预置）。\n\n### 步骤 2：配置全局变量（appkey / SystemId）\n在该环境内新增两个变量：\n\n| 变量名 | 值（示例）    | 说明                     |\n|---------|-------------|------------------------|\n| `appkey`   | `xxxxxx...` | HEX 字符串，由管理员分配 |\n| `SystemId` | `121`       | 系统 ID                |\n\n### 步骤 3：配置项目级前置脚本\n打开 Apifox → `项目设置 → 前置操作 → 添加前置操作 → 自定义脚本`，粘贴下面这段代码并保存：\n\n```javascript\n// === DCOPS HMAC-SHA-512 签名 · Apifox 前置脚本 ===\nconst CryptoJS = require('crypto-js');\n\n// 先把请求体里的变量替换为实际值（例如 {{xxx}}），\n// 这样签名计算才是用\"最终请求体\"而不是模板。\nconst rawBody = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '';\nconst body = pm.variables.replaceIn(rawBody);\n\nconst ts       = Math.floor(Date.now() / 1000).toString();\nconst appkey   = pm.environment.get('appkey');\nconst systemId = pm.environment.get('SystemId');\n\nconst sig = CryptoJS.HmacSHA512(ts + body, CryptoJS.enc.Hex.parse(appkey)).toString();\nconst hd  = 'HMAC-SHA-512 Timestamp=' + ts + ',Signature=' + sig + ',SystemId=' + systemId;\n\npm.environment.set('authorization', hd);\n```\n\n> ⚠️ 与原 Postman 脚本的关键差异：\n> - 用 `pm.request.body.raw` 代替 `request.data`（Apifox 推荐写法）\n> - 用 `pm.variables.replaceIn` 先替换模板变量，再参与签名\n> - 用 `pm.environment.get/set` 代替 `postman.getEnvironmentVariable/setEnvironmentVariable`\n\n### 步骤 4（可选）：校验\n任选一个接口点击\"发送\"。在\"控制台\"里可以看到签名脚本是否成功写入 `authorization`。\n请求 Header 一栏会显示 `Authorization: HMAC-SHA-512 Timestamp=...`。\n\n---\n\n腾讯 IDC 运维平台对外服务接口文档，提供巡检、维护、维修、演练、变更、安全管理等功能的 RESTful API 接口。\n\n## 请求鉴权（HMAC-SHA-512 签名）\n\n所有请求必须在 HTTP Header 中携带 `Authorization` 字段，格式为：\n\n```\nAuthorization: HMAC-SHA-512 Timestamp=<unix_ts>,Signature=<hex_sig>,SystemId=<system_id>\n```\n\n- `Timestamp`：当前 Unix 时间戳（秒级，10 位整数）\n- `Signature`：`HmacSHA512(Timestamp + RequestBody, hexDecode(appkey))` 的 HEX 字符串\n- `SystemId`：系统 ID（由管理员分配，如 `120`、`121`）\n\n### Postman 预执行脚本（Pre-request Script）\n\n```javascript\nvar ts = Math.floor(Date.now() / 1000);\nvar body = \"\" + ts + request.data;\nvar appkey = \"xxx\";       // 替换为真实 appkey（HEX 字符串）\nvar SystemId = \"121\";     // 替换为真实 SystemId\nvar sig = CryptoJS.HmacSHA512(body, CryptoJS.enc.Hex.parse(appkey));\nvar hd = \"HMAC-SHA-512 Timestamp=\" + ts + \",Signature=\" + sig + \",SystemId=\" + SystemId;\npostman.setEnvironmentVariable(\"authorization\", hd);\n```\n\n在 Postman 的 Headers 中添加：`Authorization: {{authorization}}`\n\n### Python 签名示例\n\n```python\nimport hmac, hashlib, time, json, requests\n\ndef build_auth(body: str, appkey_hex: str, system_id: str) -> str:\n    ts = str(int(time.time()))\n    key = bytes.fromhex(appkey_hex)\n    sig = hmac.new(key, (ts + body).encode(), hashlib.sha512).hexdigest()\n    return f\"HMAC-SHA-512 Timestamp={ts},Signature={sig},SystemId={system_id}\"\n\nurl = \"https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre\"\nbody = json.dumps({\"Action\": \"ServiceQueryData\", \"SchemaId\": \"inspection_main_service\",\n                   \"Method\": \"Run\", \"SystemId\": \"121\", \"Data\": {}})\nresp = requests.post(url, data=body, headers={\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": build_auth(body, appkey_hex=\"xxx\", system_id=\"121\"),\n})\nprint(resp.json())\n```\n\n### Go 签名示例\n\n```go\nimport (\n    \"crypto/hmac\"; \"crypto/sha512\"; \"encoding/hex\"\n    \"fmt\"; \"strconv\"; \"time\"\n)\n\nfunc buildAuth(body, appkeyHex, systemID string) string {\n    ts := strconv.FormatInt(time.Now().Unix(), 10)\n    key, _ := hex.DecodeString(appkeyHex)\n    h := hmac.New(sha512.New, key)\n    h.Write([]byte(ts + body))\n    return fmt.Sprintf(\"HMAC-SHA-512 Timestamp=%s,Signature=%s,SystemId=%s\",\n        ts, hex.EncodeToString(h.Sum(nil)), systemID)\n}\n```\n\n### 在 Swagger UI 中试用\n\n1. 在 Postman / 脚本中生成 `Authorization` 字符串\n2. 点击本页顶部 **Authorize** 按钮，将整段字符串贴入 `ApiKeyAuth` 输入框\n3. 锁定后所有 \"Try it out\" 请求自动带上该 header\n4. 注意：签名通常只在几分钟内有效，超期需重新生成\n\n"
+    "description": "## 🚀 Apifox 使用指南（重要）\n\n导入本文档后请按下述 **3 步**完成鉴权配置，之后所有 45 个接口都会自动带上签名。\n\n### 步骤 1：确认环境\n打开 Apifox → `项目设置 → 环境管理`，应能看到自动生成的：\n- **测试环境** baseUrl = `https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre`\n\n若未自动生成，请手动添加。环境的\"公共请求头\"里 **Authorization** 的值保持为 `{{authorization}}`（已预置）。\n\n### 步骤 2：配置全局变量（appkey / SystemId）\n在该环境内新增两个变量：\n\n| 变量名 | 值（示例）    | 说明                     |\n|---------|-------------|------------------------|\n| `appkey`   | `xxxxxx...` | HEX 字符串，由管理员分配 |\n| `SystemId` | `121`       | 系统 ID                |\n\n### 步骤 3：配置项目级前置脚本\n打开 Apifox → `项目设置 → 前置操作 → 添加前置操作 → 自定义脚本`，粘贴下面这段代码并保存：\n\n```javascript\n// === DCOPS HMAC-SHA-512 签名 · Apifox 前置脚本 ===\nconst CryptoJS = require('crypto-js');\n\n// 先把请求体里的变量替换为实际值（例如 {{xxx}}），\n// 这样签名计算才是用\"最终请求体\"而不是模板。\nconst rawBody = pm.request.body && pm.request.body.raw ? pm.request.body.raw : '';\nconst body = pm.variables.replaceIn(rawBody);\n\nconst ts       = Math.floor(Date.now() / 1000).toString();\nconst appkey   = pm.environment.get('appkey');\nconst systemId = pm.environment.get('SystemId');\n\nconst sig = CryptoJS.HmacSHA512(ts + body, CryptoJS.enc.Hex.parse(appkey)).toString();\nconst hd  = 'HMAC-SHA-512 Timestamp=' + ts + ',Signature=' + sig + ',SystemId=' + systemId;\n\npm.environment.set('authorization', hd);\n```\n\n> ⚠️ 与原 Postman 脚本的关键差异：\n> - 用 `pm.request.body.raw` 代替 `request.data`（Apifox 推荐写法）\n> - 用 `pm.variables.replaceIn` 先替换模板变量，再参与签名\n> - 用 `pm.environment.get/set` 代替 `postman.getEnvironmentVariable/setEnvironmentVariable`\n\n### 步骤 4（可选）：校验\n任选一个接口点击\"发送\"。在\"控制台\"里可以看到签名脚本是否成功写入 `authorization`。\n请求 Header 一栏会显示 `Authorization: HMAC-SHA-512 Timestamp=...`。\n\n---\n\n腾讯 IDC 运维平台对外服务接口文档，提供巡检、维护、维修、演练、变更、安全管理等功能的 RESTful API 接口。\n\n## 请求鉴权（HMAC-SHA-512 签名）\n\n所有请求必须在 HTTP Header 中携带 `Authorization` 字段，格式为：\n\n```\nAuthorization: HMAC-SHA-512 Timestamp=<unix_ts>,Signature=<hex_sig>,SystemId=<system_id>\n```\n\n- `Timestamp`：当前 Unix 时间戳（秒级，10 位整数）\n- `Signature`：`HmacSHA512(Timestamp + RequestBody, hexDecode(appkey))` 的 HEX 字符串\n- `SystemId`：系统 ID（由管理员分配，如 `120`、`121`）\n\n### Postman 预执行脚本（Pre-request Script）\n\n```javascript\nvar ts = Math.floor(Date.now() / 1000);\nvar body = \"\" + ts + request.data;\nvar appkey = \"xxx\";       // 替换为真实 appkey（HEX 字符串）\nvar SystemId = \"121\";     // 替换为真实 SystemId\nvar sig = CryptoJS.HmacSHA512(body, CryptoJS.enc.Hex.parse(appkey));\nvar hd = \"HMAC-SHA-512 Timestamp=\" + ts + \",Signature=\" + sig + \",SystemId=\" + SystemId;\npostman.setEnvironmentVariable(\"authorization\", hd);\n```\n\n在 Postman 的 Headers 中添加：`Authorization: {{authorization}}`\n\n### Python 签名示例\n\n```python\nimport hmac, hashlib, time, json, requests\n\ndef build_auth(body: str, appkey_hex: str, system_id: str) -> str:\n    ts = str(int(time.time()))\n    key = bytes.fromhex(appkey_hex)\n    sig = hmac.new(key, (ts + body).encode(), hashlib.sha512).hexdigest()\n    return f\"HMAC-SHA-512 Timestamp={ts},Signature={sig},SystemId={system_id}\"\n\nurl = \"https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre\"\nbody = json.dumps({\"Action\": \"ServiceQueryData\", \"SchemaId\": \"inspection_main_service\",\n                   \"Method\": \"Run\", \"SystemId\": \"121\", \"Data\": {}})\nresp = requests.post(url, data=body, headers={\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": build_auth(body, appkey_hex=\"xxx\", system_id=\"121\"),\n})\nprint(resp.json())\n```\n\n### Go 签名示例\n\n```go\nimport (\n    \"crypto/hmac\"; \"crypto/sha512\"; \"encoding/hex\"\n    \"fmt\"; \"strconv\"; \"time\"\n)\n\nfunc buildAuth(body, appkeyHex, systemID string) string {\n    ts := strconv.FormatInt(time.Now().Unix(), 10)\n    key, _ := hex.DecodeString(appkeyHex)\n    h := hmac.New(sha512.New, key)\n    h.Write([]byte(ts + body))\n    return fmt.Sprintf(\"HMAC-SHA-512 Timestamp=%s,Signature=%s,SystemId=%s\",\n        ts, hex.EncodeToString(h.Sum(nil)), systemID)\n}\n```\n\n### 在 Swagger UI 中试用\n\n1. 在 Postman / 脚本中生成 `Authorization` 字符串\n2. 点击本页顶部 **Authorize** 按钮，将整段字符串贴入 `ApiKeyAuth` 输入框\n3. 锁定后所有 \"Try it out\" 请求自动带上该 header\n4. 注意：签名通常只在几分钟内有效，超期需重新生成\n\n"
   },
   "servers": [
     {
-      "url": "https://dcops.test.tencent.com/relay/open/ifob/rapi",
+      "url": "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre",
       "description": "测试环境 (Testing)"
-    },
-    {
-      "url": "https://dcops.idc.tencent.com/relay/open/ifob/rapi",
-      "description": "正式环境 (Production)"
     }
   ],
   "tags": [
@@ -70,7 +66,7 @@
     }
   ],
   "paths": {
-    "/ifob-fre#query_inspection_main_service": {
+    "/#query_inspection_main_service": {
       "post": {
         "tags": [
           "巡检管理"
@@ -629,7 +625,7 @@
         ]
       }
     },
-    "/ifob-fre#query_maintenance_ticket_main_service": {
+    "/#query_maintenance_ticket_main_service": {
       "post": {
         "tags": [
           "维护管理"
@@ -1116,7 +1112,7 @@
         ]
       }
     },
-    "/ifob-fre#query_dg_maintenance_ticket_sub_service": {
+    "/#query_dg_maintenance_ticket_sub_service": {
       "post": {
         "tags": [
           "维护管理"
@@ -1675,7 +1671,7 @@
         ]
       }
     },
-    "/ifob-fre#query_maintenance_work_order_read": {
+    "/#query_maintenance_work_order_read": {
       "post": {
         "tags": [
           "维修管理"
@@ -2018,7 +2014,7 @@
         ]
       }
     },
-    "/ifob-fre#query_repair_orders": {
+    "/#query_repair_orders": {
       "post": {
         "tags": [
           "维修管理"
@@ -2343,7 +2339,7 @@
         ]
       }
     },
-    "/ifob-fre#query_repair_orders_ope_logs": {
+    "/#query_repair_orders_ope_logs": {
       "post": {
         "tags": [
           "维修管理"
@@ -2497,7 +2493,7 @@
         ]
       }
     },
-    "/ifob-fre#query_service_person": {
+    "/#query_service_person": {
       "post": {
         "tags": [
           "通用查询"
@@ -2695,7 +2691,7 @@
         ]
       }
     },
-    "/ifob-fre#query_service_common_ticket": {
+    "/#query_service_common_ticket": {
       "post": {
         "tags": [
           "通用查询"
@@ -3028,7 +3024,7 @@
         ]
       }
     },
-    "/ifob-fre#query_simple_main_ticket": {
+    "/#query_simple_main_ticket": {
       "post": {
         "tags": [
           "维护管理"
@@ -3344,7 +3340,7 @@
         ]
       }
     },
-    "/ifob-fre#query_simple_sub_ticket": {
+    "/#query_simple_sub_ticket": {
       "post": {
         "tags": [
           "维护管理"
@@ -3705,7 +3701,7 @@
         ]
       }
     },
-    "/ifob-fre#query_emp_competency_assessment_1": {
+    "/#query_emp_competency_assessment_1": {
       "post": {
         "tags": [
           "培训管理"
@@ -3913,7 +3909,7 @@
         ]
       }
     },
-    "/ifob-fre#query_change_info_read_only": {
+    "/#query_change_info_read_only": {
       "post": {
         "tags": [
           "变更管理"
@@ -4382,7 +4378,7 @@
         ]
       }
     },
-    "/ifob-fre#query_change_child_read_only": {
+    "/#query_change_child_read_only": {
       "post": {
         "tags": [
           "变更管理"
@@ -4851,7 +4847,7 @@
         ]
       }
     },
-    "/ifob-fre#query_service_training_results_record": {
+    "/#query_service_training_results_record": {
       "post": {
         "tags": [
           "培训管理"
@@ -5167,7 +5163,7 @@
         ]
       }
     },
-    "/ifob-fre#query_training_results_record": {
+    "/#query_training_results_record": {
       "post": {
         "tags": [
           "培训管理"
@@ -5456,7 +5452,7 @@
         ]
       }
     },
-    "/ifob-fre#get_scene_level_list": {
+    "/#get_scene_level_list": {
       "post": {
         "tags": [
           "演练管理"
@@ -5540,7 +5536,7 @@
         }
       }
     },
-    "/ifob-fre#create_drill_plan": {
+    "/#create_drill_plan": {
       "post": {
         "tags": [
           "演练管理"
@@ -5572,7 +5568,7 @@
         }
       }
     },
-    "/ifob-fre#create_todo_ticket": {
+    "/#create_todo_ticket": {
       "post": {
         "tags": [
           "演练管理"
@@ -5649,7 +5645,7 @@
         }
       }
     },
-    "/ifob-fre#get_todo_ticket_info": {
+    "/#get_todo_ticket_info": {
       "get": {
         "tags": [
           "演练管理"
@@ -5682,7 +5678,7 @@
         }
       }
     },
-    "/ifob-fre#get_todo_ticket_attachments": {
+    "/#get_todo_ticket_attachments": {
       "get": {
         "tags": [
           "演练管理"
@@ -5747,7 +5743,7 @@
         }
       }
     },
-    "/ifob-fre#get_todo_ticket_pdf": {
+    "/#get_todo_ticket_pdf": {
       "get": {
         "tags": [
           "演练管理"
@@ -5797,7 +5793,7 @@
         }
       }
     },
-    "/ifob-fre#drill_create_plan": {
+    "/#drill_create_plan": {
       "post": {
         "tags": [
           "演练管理"
@@ -5870,7 +5866,7 @@
         }
       }
     },
-    "/ifob-fre#create_rack_power_ticket": {
+    "/#create_rack_power_ticket": {
       "post": {
         "tags": [
           "机架开关电"
@@ -5902,7 +5898,7 @@
         }
       }
     },
-    "/ifob-fre#batch_create_rack_power_ticket": {
+    "/#batch_create_rack_power_ticket": {
       "post": {
         "tags": [
           "机架开关电"
@@ -5960,7 +5956,7 @@
         }
       }
     },
-    "/ifob-fre#query_rack_power_ticket": {
+    "/#query_rack_power_ticket": {
       "post": {
         "tags": [
           "机架开关电"
@@ -6024,7 +6020,7 @@
         }
       }
     },
-    "/ifob-fre#create_people_inout_ticket": {
+    "/#create_people_inout_ticket": {
       "post": {
         "tags": [
           "安全管理"
@@ -6056,7 +6052,7 @@
         }
       }
     },
-    "/ifob-fre#query_people_inout": {
+    "/#query_people_inout": {
       "post": {
         "tags": [
           "安全管理"
@@ -6129,7 +6125,7 @@
         }
       }
     },
-    "/ifob-fre#create_goods_inout_ticket": {
+    "/#create_goods_inout_ticket": {
       "post": {
         "tags": [
           "安全管理"
@@ -6161,7 +6157,7 @@
         }
       }
     },
-    "/ifob-fre#query_goods_inout": {
+    "/#query_goods_inout": {
       "post": {
         "tags": [
           "安全管理"
@@ -6234,7 +6230,7 @@
         }
       }
     },
-    "/ifob-fre#isp_qc_feedback": {
+    "/#isp_qc_feedback": {
       "post": {
         "tags": [
           "服务改善"
@@ -6311,7 +6307,7 @@
         }
       }
     },
-    "/ifob-fre#implement_feedback": {
+    "/#implement_feedback": {
       "post": {
         "tags": [
           "服务改善"
@@ -6401,7 +6397,7 @@
         }
       }
     },
-    "/ifob-fre#upload_resume": {
+    "/#upload_resume": {
       "post": {
         "tags": [
           "人员招聘"
@@ -6492,7 +6488,7 @@
         }
       }
     },
-    "/ifob-fre#interview_time_feedback": {
+    "/#interview_time_feedback": {
       "post": {
         "tags": [
           "人员招聘"
@@ -6573,7 +6569,7 @@
         }
       }
     },
-    "/ifob-fre#onboarding_status_feedback": {
+    "/#onboarding_status_feedback": {
       "post": {
         "tags": [
           "人员招聘"
@@ -6659,7 +6655,7 @@
         }
       }
     },
-    "/ifob-fre#query_drill_cd_sub_plan": {
+    "/#query_drill_cd_sub_plan": {
       "post": {
         "tags": [
           "演练管理"
@@ -6856,7 +6852,7 @@
         ]
       }
     },
-    "/ifob-fre#query_drill_cd_sub_plan_step": {
+    "/#query_drill_cd_sub_plan_step": {
       "post": {
         "tags": [
           "演练管理"
@@ -6990,7 +6986,7 @@
         ]
       }
     },
-    "/ifob-fre#query_drill_standard_calendar": {
+    "/#query_drill_standard_calendar": {
       "post": {
         "tags": [
           "演练管理"
@@ -7241,7 +7237,7 @@
         ]
       }
     },
-    "/ifob-fre#query_drill_tode_ticket_info": {
+    "/#query_drill_tode_ticket_info": {
       "post": {
         "tags": [
           "演练管理"
@@ -7753,7 +7749,7 @@
         ]
       }
     },
-    "/ifob-fre#query_drill_step_list": {
+    "/#query_drill_step_list": {
       "post": {
         "tags": [
           "演练管理"
@@ -7923,7 +7919,7 @@
         ]
       }
     },
-    "/ifob-fre#query_device_simple": {
+    "/#query_device_simple": {
       "post": {
         "tags": [
           "设备管理"
@@ -8319,7 +8315,7 @@
         ]
       }
     },
-    "/ifob-fre#query_event_work_order": {
+    "/#query_event_work_order": {
       "post": {
         "tags": [
           "事件管理"
@@ -8607,7 +8603,7 @@
         ]
       }
     },
-    "/ifob-fre#query_event_alarm_device_info": {
+    "/#query_event_alarm_device_info": {
       "post": {
         "tags": [
           "事件管理"
@@ -8690,7 +8686,7 @@
         ]
       }
     },
-    "/ifob-fre#query_event_operation_log": {
+    "/#query_event_operation_log": {
       "post": {
         "tags": [
           "维修管理"
@@ -8808,7 +8804,7 @@
         ]
       }
     },
-    "/ifob-fre#query_human_recruit": {
+    "/#query_human_recruit": {
       "post": {
         "tags": [
           "人员招聘"
@@ -9143,7 +9139,7 @@
         ]
       }
     },
-    "/ifob-fre#query_recruit_requirement": {
+    "/#query_recruit_requirement": {
       "post": {
         "tags": [
           "人员招聘"
@@ -12851,20 +12847,7 @@
   "x-apifox-environments": [
     {
       "name": "测试环境",
-      "baseUrl": "https://dcops.test.tencent.com/relay/open/ifob/rapi",
-      "parameters": {
-        "header": [
-          {
-            "name": "Authorization",
-            "value": "{{authorization}}",
-            "description": "鉴权请求头。值通过前置脚本动态生成（参见首页\"请求鉴权 · Apifox 前置脚本\"章节）。\n脚本会把生成的 HMAC-SHA-512 签名写入环境变量 authorization，\n此处以 {{authorization}} 引用。"
-          }
-        ]
-      }
-    },
-    {
-      "name": "正式环境",
-      "baseUrl": "https://dcops.idc.tencent.com/relay/open/ifob/rapi",
+      "baseUrl": "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre",
       "parameters": {
         "header": [
           {
