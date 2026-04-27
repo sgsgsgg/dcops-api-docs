@@ -66,7 +66,7 @@
     }
   ],
   "paths": {
-    "/#query_inspection_main_service": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_inspection_main_service": {
       "post": {
         "tags": [
           "巡检管理"
@@ -625,7 +625,7 @@
         ]
       }
     },
-    "/#query_maintenance_ticket_main_service": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_maintenance_ticket_main_service": {
       "post": {
         "tags": [
           "维护管理"
@@ -1112,7 +1112,7 @@
         ]
       }
     },
-    "/#query_dg_maintenance_ticket_sub_service": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_dg_maintenance_ticket_sub_service": {
       "post": {
         "tags": [
           "维护管理"
@@ -1671,7 +1671,7 @@
         ]
       }
     },
-    "/#query_maintenance_work_order_read": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_maintenance_work_order_read": {
       "post": {
         "tags": [
           "维修管理"
@@ -2014,7 +2014,7 @@
         ]
       }
     },
-    "/#query_repair_orders": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_repair_orders": {
       "post": {
         "tags": [
           "维修管理"
@@ -2339,7 +2339,7 @@
         ]
       }
     },
-    "/#query_repair_orders_ope_logs": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_repair_orders_ope_logs": {
       "post": {
         "tags": [
           "维修管理"
@@ -2493,7 +2493,7 @@
         ]
       }
     },
-    "/#query_service_person": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_service_person": {
       "post": {
         "tags": [
           "通用查询"
@@ -2691,7 +2691,7 @@
         ]
       }
     },
-    "/#query_service_common_ticket": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_service_common_ticket": {
       "post": {
         "tags": [
           "通用查询"
@@ -3024,7 +3024,7 @@
         ]
       }
     },
-    "/#query_simple_main_ticket": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_simple_main_ticket": {
       "post": {
         "tags": [
           "维护管理"
@@ -3340,7 +3340,7 @@
         ]
       }
     },
-    "/#query_simple_sub_ticket": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_simple_sub_ticket": {
       "post": {
         "tags": [
           "维护管理"
@@ -3701,7 +3701,7 @@
         ]
       }
     },
-    "/#query_emp_competency_assessment_1": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_emp_competency_assessment_1": {
       "post": {
         "tags": [
           "培训管理"
@@ -3909,7 +3909,7 @@
         ]
       }
     },
-    "/#query_change_info_read_only": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_change_info_read_only": {
       "post": {
         "tags": [
           "变更管理"
@@ -4378,7 +4378,7 @@
         ]
       }
     },
-    "/#query_change_child_read_only": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_change_child_read_only": {
       "post": {
         "tags": [
           "变更管理"
@@ -4847,7 +4847,7 @@
         ]
       }
     },
-    "/#query_service_training_results_record": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_service_training_results_record": {
       "post": {
         "tags": [
           "培训管理"
@@ -5163,7 +5163,7 @@
         ]
       }
     },
-    "/#query_training_results_record": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_training_results_record": {
       "post": {
         "tags": [
           "培训管理"
@@ -5452,7 +5452,7 @@
         ]
       }
     },
-    "/#get_scene_level_list": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#get_scene_level_list": {
       "post": {
         "tags": [
           "演练管理"
@@ -5536,7 +5536,7 @@
         }
       }
     },
-    "/#create_drill_plan": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#create_drill_plan": {
       "post": {
         "tags": [
           "演练管理"
@@ -5568,7 +5568,7 @@
         }
       }
     },
-    "/#create_todo_ticket": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#create_todo_ticket": {
       "post": {
         "tags": [
           "演练管理"
@@ -5645,7 +5645,7 @@
         }
       }
     },
-    "/#get_todo_ticket_info": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#get_todo_ticket_info": {
       "get": {
         "tags": [
           "演练管理"
@@ -5678,7 +5678,7 @@
         }
       }
     },
-    "/#get_todo_ticket_attachments": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#get_todo_ticket_attachments": {
       "get": {
         "tags": [
           "演练管理"
@@ -5743,7 +5743,7 @@
         }
       }
     },
-    "/#get_todo_ticket_pdf": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#get_todo_ticket_pdf": {
       "get": {
         "tags": [
           "演练管理"
@@ -5793,7 +5793,7 @@
         }
       }
     },
-    "/#drill_create_plan": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#drill_create_plan": {
       "post": {
         "tags": [
           "演练管理"
@@ -5866,7 +5866,7 @@
         }
       }
     },
-    "/#create_rack_power_ticket": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#create_rack_power_ticket": {
       "post": {
         "tags": [
           "机架开关电"
@@ -5898,7 +5898,7 @@
         }
       }
     },
-    "/#batch_create_rack_power_ticket": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#batch_create_rack_power_ticket": {
       "post": {
         "tags": [
           "机架开关电"
@@ -5956,7 +5956,7 @@
         }
       }
     },
-    "/#query_rack_power_ticket": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_rack_power_ticket": {
       "post": {
         "tags": [
           "机架开关电"
@@ -6020,7 +6020,7 @@
         }
       }
     },
-    "/#create_people_inout_ticket": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#create_people_inout_ticket": {
       "post": {
         "tags": [
           "安全管理"
@@ -6052,7 +6052,7 @@
         }
       }
     },
-    "/#query_people_inout": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_people_inout": {
       "post": {
         "tags": [
           "安全管理"
@@ -6125,7 +6125,7 @@
         }
       }
     },
-    "/#create_goods_inout_ticket": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#create_goods_inout_ticket": {
       "post": {
         "tags": [
           "安全管理"
@@ -6157,7 +6157,7 @@
         }
       }
     },
-    "/#query_goods_inout": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_goods_inout": {
       "post": {
         "tags": [
           "安全管理"
@@ -6230,7 +6230,7 @@
         }
       }
     },
-    "/#isp_qc_feedback": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#isp_qc_feedback": {
       "post": {
         "tags": [
           "服务改善"
@@ -6307,7 +6307,7 @@
         }
       }
     },
-    "/#implement_feedback": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#implement_feedback": {
       "post": {
         "tags": [
           "服务改善"
@@ -6397,7 +6397,7 @@
         }
       }
     },
-    "/#upload_resume": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#upload_resume": {
       "post": {
         "tags": [
           "人员招聘"
@@ -6488,7 +6488,7 @@
         }
       }
     },
-    "/#interview_time_feedback": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#interview_time_feedback": {
       "post": {
         "tags": [
           "人员招聘"
@@ -6569,7 +6569,7 @@
         }
       }
     },
-    "/#onboarding_status_feedback": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#onboarding_status_feedback": {
       "post": {
         "tags": [
           "人员招聘"
@@ -6655,7 +6655,7 @@
         }
       }
     },
-    "/#query_drill_cd_sub_plan": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_drill_cd_sub_plan": {
       "post": {
         "tags": [
           "演练管理"
@@ -6852,7 +6852,7 @@
         ]
       }
     },
-    "/#query_drill_cd_sub_plan_step": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_drill_cd_sub_plan_step": {
       "post": {
         "tags": [
           "演练管理"
@@ -6986,7 +6986,7 @@
         ]
       }
     },
-    "/#query_drill_standard_calendar": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_drill_standard_calendar": {
       "post": {
         "tags": [
           "演练管理"
@@ -7237,7 +7237,7 @@
         ]
       }
     },
-    "/#query_drill_tode_ticket_info": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_drill_tode_ticket_info": {
       "post": {
         "tags": [
           "演练管理"
@@ -7749,7 +7749,7 @@
         ]
       }
     },
-    "/#query_drill_step_list": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_drill_step_list": {
       "post": {
         "tags": [
           "演练管理"
@@ -7919,7 +7919,7 @@
         ]
       }
     },
-    "/#query_device_simple": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_device_simple": {
       "post": {
         "tags": [
           "设备管理"
@@ -8315,7 +8315,7 @@
         ]
       }
     },
-    "/#query_event_work_order": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_event_work_order": {
       "post": {
         "tags": [
           "事件管理"
@@ -8603,7 +8603,7 @@
         ]
       }
     },
-    "/#query_event_alarm_device_info": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_event_alarm_device_info": {
       "post": {
         "tags": [
           "事件管理"
@@ -8686,7 +8686,7 @@
         ]
       }
     },
-    "/#query_event_operation_log": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_event_operation_log": {
       "post": {
         "tags": [
           "维修管理"
@@ -8804,7 +8804,7 @@
         ]
       }
     },
-    "/#query_human_recruit": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_human_recruit": {
       "post": {
         "tags": [
           "人员招聘"
@@ -9139,7 +9139,7 @@
         ]
       }
     },
-    "/#query_recruit_requirement": {
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_recruit_requirement": {
       "post": {
         "tags": [
           "人员招聘"
