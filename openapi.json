@@ -2493,6 +2493,79 @@
         ]
       }
     },
+    "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#create_repair_ticket": {
+      "post": {
+        "tags": [
+          "维修管理"
+        ],
+        "summary": "创建维修工单",
+        "description": "基于上游来源（告警 / 巡检 / 现场反馈 等）在 DCOPS 中创建一条维修工单，并自动发起 ifob 维修流程。\n\n#### 接口调用方式\n\n固定四元组：\n\n- `Action`：`ServiceCall`\n- `Method`：`Run`\n- `Target`：`RepairTicket-CreateTicket`\n- `BussType`：`维修`\n\n#### 返回示例\n\n```json\n{\n  \"Return\": 0,\n  \"Details\": \"\",\n  \"ReqId\": \"ifob-fredie2uwbt35skak\",\n  \"Data\": {\n    \"ReqId\": \"fob-gnetopsdie2uwc2tqavp7\",\n    \"TicketId\": \"10260509008727\"\n  }\n}\n```\n\n字段含义：\n\n- 顶层 `ReqId`：本次 OpenAPI 请求的请求 ID（用于排障定位）；\n- `Data.ReqId`：底层 ifob 请求 ID；\n- `Data.TicketId`：DCOPS 维修工单号，可用于后续查询 `repair_orders` 主表与 `repair_orders_ope_logs` 操作日志。",
+        "operationId": "create_repair_ticket",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepairTicketCreateRequest"
+              },
+              "example": {
+                "Action": "ServiceCall",
+                "Method": "Run",
+                "SystemId": "178",
+                "Target": "RepairTicket-CreateTicket",
+                "BussType": "维修",
+                "Data": {
+                  "campus_name": "重庆-泰和",
+                  "creator": "v_iywjyang",
+                  "facilities_professional": "暖通",
+                  "is_append": "否",
+                  "mozu_name": "重庆泰和模组01",
+                  "mozu_type": "自建",
+                  "problem_desc": "AHU供电异常",
+                  "repair_business": "万国",
+                  "repair_device_list": [
+                    {
+                      "device_brand": "",
+                      "device_model": "",
+                      "device_name": "1.1期冷冻站东侧冷却水回水管道",
+                      "device_number": "CQ-TH-BD2-CA147-PIPE-04",
+                      "devicetypes_name": "管道",
+                      "room_name": "重庆泰和2号楼CA147"
+                    }
+                  ],
+                  "repair_level": "普通",
+                  "ticket_title": "重庆泰和模组01-测试",
+                  "upstream_business": "现场反馈",
+                  "upstream_id": "测试"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "创建成功，返回 DCOPS 维修工单号 `Data.TicketId`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "https://dcops.test.tencent.com/relay/open/ifob/rapi/ifob-fre#query_service_person": {
       "post": {
         "tags": [
@@ -9653,6 +9726,167 @@
             "description": "错误信息"
           }
         }
+      },
+      "RepairDeviceItem": {
+        "type": "object",
+        "description": "维修设备/部件信息",
+        "properties": {
+          "device_number": {
+            "type": "string",
+            "description": "设备/部件编号（CMDB 中的唯一编号）"
+          },
+          "device_name": {
+            "type": "string",
+            "description": "设备名称"
+          },
+          "device_brand": {
+            "type": "string",
+            "description": "设备品牌"
+          },
+          "device_model": {
+            "type": "string",
+            "description": "设备型号"
+          },
+          "devicetypes_name": {
+            "type": "string",
+            "description": "设备类型（如：管道、配电柜、空调 等）"
+          },
+          "room_name": {
+            "type": "string",
+            "description": "所在位置/房间名（如：重庆泰和2号楼CA147）"
+          }
+        }
+      },
+      "RepairTicketCreateData": {
+        "type": "object",
+        "required": [
+          "ticket_title",
+          "campus_name",
+          "mozu_name",
+          "repair_level",
+          "upstream_business",
+          "creator",
+          "facilities_professional",
+          "problem_desc"
+        ],
+        "properties": {
+          "ticket_title": {
+            "type": "string",
+            "description": "工单标题，必填，建议含有园区/模组与故障概述"
+          },
+          "campus_name": {
+            "type": "string",
+            "description": "园区名称，必填（如：重庆-泰和）"
+          },
+          "mozu_name": {
+            "type": "string",
+            "description": "模组名称，必填（如：重庆泰和模组01）"
+          },
+          "repair_level": {
+            "type": "string",
+            "description": "维修等级，必填（如：普通、紧急 等）"
+          },
+          "upstream_business": {
+            "type": "string",
+            "description": "维修来源，必填（如：现场反馈、告警、巡检 等）"
+          },
+          "creator": {
+            "type": "string",
+            "description": "建单人 OA 账号，必填，将同时作为流程关注人"
+          },
+          "facilities_professional": {
+            "type": "string",
+            "description": "所属专业，必填（如：暖通、电气、弱电 等）"
+          },
+          "problem_desc": {
+            "type": "string",
+            "description": "故障现象描述，必填，将作为 ifob 工单描述"
+          },
+          "repair_device_list": {
+            "type": "array",
+            "description": "故障设备/部件列表，选填；若提供，将批量写入 repair_devices 表",
+            "items": {
+              "$ref": "#/components/schemas/RepairDeviceItem"
+            }
+          },
+          "upstream_id": {
+            "type": "string",
+            "description": "上游工单号，选填；用于跨系统关联追踪（如告警平台/巡检平台的工单号）"
+          },
+          "repair_business": {
+            "type": "string",
+            "description": "维修厂商，选填；当 mozu_type=自建 且未传时，系统会按 repair_services_config 自动选择保外服务商或保内 TBGc"
+          },
+          "is_append": {
+            "type": "string",
+            "description": "是否补单，选填，可选值：是 / 否，默认 否",
+            "enum": [
+              "是",
+              "否"
+            ]
+          },
+          "append_reason": {
+            "type": "string",
+            "description": "补单原因，选填；当 is_append=是 时建议填写"
+          },
+          "mozu_type": {
+            "type": "string",
+            "description": "模组类型，选填，可选值：自建 / 租用；若不传，系统将根据特殊模组配置和 idcdb 模组属性自动推断并补全",
+            "enum": [
+              "自建",
+              "租用"
+            ]
+          }
+        }
+      },
+      "RepairTicketCreateRequest": {
+        "type": "object",
+        "required": [
+          "Action",
+          "Method",
+          "SystemId",
+          "Target",
+          "BussType",
+          "Data"
+        ],
+        "properties": {
+          "Action": {
+            "type": "string",
+            "description": "接口动作，固定值",
+            "enum": [
+              "ServiceCall"
+            ]
+          },
+          "Method": {
+            "type": "string",
+            "description": "调用方法，固定值",
+            "enum": [
+              "Run"
+            ]
+          },
+          "SystemId": {
+            "type": "string",
+            "description": "系统ID（由管理员分配），用于标识上游业务系统"
+          },
+          "Target": {
+            "type": "string",
+            "description": "目标服务，固定值",
+            "enum": [
+              "RepairTicket-CreateTicket"
+            ]
+          },
+          "BussType": {
+            "type": "string",
+            "description": "业务类型，固定值",
+            "enum": [
+              "维修"
+            ]
+          },
+          "Data": {
+            "$ref": "#/components/schemas/RepairTicketCreateData"
+          }
+        },
+        "description": "创建维修工单的请求体"
       },
       "InspectionMainFields": {
         "type": "object",
